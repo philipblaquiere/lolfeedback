@@ -14,33 +14,29 @@ class Register extends MY_Controller
   
   public function index()
   {
-    $this->require_not_login();
-
     //Validation on input (requires that all fields exist)
-    $this->load->library('form_validation');
+   //$this->load->library('form_validation');
 
-    $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|callback_unique_email');
-    $this->form_validation->set_rules('password1', 'Password', 'required|xss_clean|callback_password_match');
-    $this->form_validation->set_rules('password2', 'Re-Password', 'required|xss_clean');
+    //$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|callback_unique_email');
+    //$this->form_validation->set_rules('password1', 'Password', 'required|xss_clean|callback_password_match');
+    //$this->form_validation->set_rules('password2', 'Re-Password', 'required|xss_clean');
 
-    $this->form_validation->set_rules('summonername', 'Summoner Name', 'trim|required');
+    //$this->form_validation->set_rules('summonername', 'Summoner Name', 'trim|required');
 
-    if($this->form_validation->run() == FALSE)
-    {
+    //if($this->form_validation->run() == FALSE)
+    //{
       $this->view_wrapper('register');
-    } 
+    //} 
 
-    else
-    {
-      $ip = $this->input->ip_address();
+    //else
+    //{
+    //  $ip = $this->input->ip_address();
 
-      $user = $this->input->post();
-      $user['password'] = $this->password_hash($user['password1']);
+    //  $user = $this->input->post();
+    //  $user['password'] = $this->password_hash($user['password1']);
       //Save user object and get key to send to user email.
-      $_SESSION['pending_user'] = $user;
-
-      $this->view_wrapper('pending_validation', array(), false);
-    }
+    //  $_SESSION['pending_user'] = $user;
+    
   }
 
   public function password_match($pw1)
@@ -61,7 +57,7 @@ class Register extends MY_Controller
   public function unique_email($email)
   {
     $email = strtolower($email);
-    $user = $this->user_model->get_by_email($email);
+    $user = $this->user_model->get($email);
     if($user)
     {
       $this->form_validation->set_message('unique_email', 'That email is already registered with our website, choose another one.');
@@ -72,9 +68,10 @@ class Register extends MY_Controller
       return TRUE;
     }
   }
- private function _create_lol()
+ private function create()
   {
-    $this->system_message_model->set_message($player['player_name'] . ', you have successfully linked your League of Legends account!', MESSAGE_INFO);
+    $user = $_SESSION['user'];
+    $this->system_message_model->set_message($user['name'] . ', you have successfully linked your League of Legends account!', MESSAGE_INFO);
     redirect('home','refresh');
   }
 }

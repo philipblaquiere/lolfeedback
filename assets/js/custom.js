@@ -1,9 +1,8 @@
 
 //ajax call for summoner validation process.
-$('#lolSummonerRegistrationForm').submit(function(event) {
-	/* Stop form from submitting normally */
+$('#lolSummonerRegistration').submit(function(event) 
+{
     event.preventDefault();
-
     /* Clear rune page div*/
     $("#authenticate_runepage_page").html('');
     $("#summoner_validation_error").html('');
@@ -16,7 +15,7 @@ $('#lolSummonerRegistrationForm').submit(function(event) {
     
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: '/LoLRep/ajax/authenticate_summoner/'+ region +'/'+ summonername.trim(),
+        url: '/LetItOut/ajax/authenticate_summoner/'+ region +'/'+ summonername.trim(),
         type: "post",
         data: summonername,
         success: function(data){
@@ -37,7 +36,7 @@ $(document).on('submit','#rune_page_verification',function(event) {
 
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: '/LoLRep/ajax/rune_page_verification',
+        url: '/LetItOut/ajax/rune_page_verification',
         type: "get",
         data: {},
         success: function(data){
@@ -430,7 +429,7 @@ function switchButtonToRegister(){
     button.setAttribute('value','Register');
     form = document.getElementById('rune_page_verification');
     form.setAttribute('id','create');
-    form.setAttribute('action', 'add_esport/create');
+    form.setAttribute('action', 'register/create');
 }
 
 $('textarea.form-control').maxlength({

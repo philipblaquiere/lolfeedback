@@ -10,7 +10,7 @@ class User_Model extends CI_Model
     parent::__construct();
     $this->db1 = $this->load->database('default', TRUE);
   }
-
+  
   public function get($email)
   {
     $sql = "SELECT * FROM {$this->table} WHERE email = '$email' LIMIT 1";
