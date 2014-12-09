@@ -2,14 +2,16 @@
   <nav class="navbar navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
         <a class="navbar-brand" href="<?php echo site_url('home'); ?>">LetItOut</a>
       </div>
+      <?php echo form_open('search', array('class' => 'navbar-form navbar-right', 'id' => 'search_summoner', 'role' => 'search')); ?>
+        <div class="input-group">
+            <?php echo form_input(array('name' => 'search', 'class' => 'form-control', 'placeholder' => 'Search Summoner', 'id' => 'search_textbox')); ?>
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">Search</button>
+          </span>
+        </div>
+      <?php echo form_close(); ?>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
           <?php if ($is_logged_in): ?>

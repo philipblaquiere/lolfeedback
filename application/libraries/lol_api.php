@@ -108,9 +108,10 @@ class Lol_api
 		return $this->request($call);
 	}
 	//returns a summoner's id
-	public function getSummonerId($name) {
-			$summoner = $this->getSummonerByName($name);
-			return $summoner[$name]["id"];
+	public function getSummonerId($name)
+	{
+		$summoner = $this->getSummonerByName($name);
+		return $summoner[$name]["id"];
 	}		
 
 	public function getSummoner($id,$option=null){
@@ -138,9 +139,8 @@ class Lol_api
 	}
 
 
-	public function getSummonerByName($name){
-
-
+	public function getSummonerByName($name)
+	{
 		//use rawurlencode for special characters
 		$call = 'summoner/by-name/' . rawurlencode($name);
 

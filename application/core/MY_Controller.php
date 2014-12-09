@@ -47,13 +47,18 @@ class MY_Controller extends CI_Controller  {
     $this->load->view($template, $data);
     $this->load->view('include/footer');
   }
+  public function view($template, $data)
+  {
+    $this->load->view($template, $data);
+  }
 
   /**
    * Convinience function to determine if the user is logged in.
    * @returns
    *   TRUE if the user is currently authenticated, FALSE otherwise.
    */
-  protected function is_logged_in() {
+  protected function is_logged_in()
+  {
     return isset($_SESSION['user']);
   }
 
@@ -83,6 +88,18 @@ class MY_Controller extends CI_Controller  {
   {
   }
 
+  /**
+  * Verifies that client is not logged in, and if so, it logs them out but allows them to view
+  * the originally requested page (ie Registration)
+  */
+  protected function require_not_login()
+  {
+    if ($this->is_logged_in())
+    {
+      $this->system_message_model->set_message('You have been automatically logged out in order to view this page.', MESSAGE_WARNING);
+      $this->destroy_session();
+    }
+  }
   /*
   *Converts the UTC/GMT UNIX standard epoch time to the user specific time zone formatted date. 
   */

@@ -34,12 +34,6 @@ class User_Model extends CI_Model
             VALUES ('" . $user['id'] . "', '" . $user['name'] . "', '" . $user['email'] . "', '" . $user['password'] . "')";
     
     $this->db1->query($sql);
-
-    $newuser = array();
-    $newuser['id'] = $uniqueid;
-    $newuser['email'] = $user['email'];
-    
-    return $newuser;
   }
   
   public function generate_rune_page_key()
@@ -58,8 +52,8 @@ class User_Model extends CI_Model
   public function log_login($uid)
   {
     $sql = "UPDATE {$this->table} 
-            SET last_login_time = current_timestamp 
-            WHERE userid = '$uid'";
+            SET last_login = current_timestamp 
+            WHERE id = '$uid'";
     $this->db1->query($sql);
   }
 }

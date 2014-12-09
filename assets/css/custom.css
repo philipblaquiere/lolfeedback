@@ -1,0 +1,201 @@
+/**
+ * All your custom CSS
+ */
+ body {
+  padding-top: 50px;
+
+ }
+#wrap {
+  margin: 0 auto;
+  padding: 0 0 ;
+  height: auto;
+
+}
+#system-messages {
+  background-color: #fff;
+}
+#system-messages ul {
+  padding: 0px;
+}
+#system-messages li {
+  display: block;
+  list-style: none;
+  padding: 0.5em;
+}
+#system-messages .error {
+  border: 1px solid #ff0000;
+  background: rgba(255,0,0,0.3);
+}
+#system-messages .warning {
+  border: 1px solid #ffff00;
+  background: rgba(255,255,0,0.4);
+}
+#system-messages .notice {
+  border: 1px solid #00ff00;
+  background: rgba(0,255,0,0.2);
+}
+
+#splash_image{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10px;
+}
+
+#splash_message{
+  text-align: center;
+}
+
+.search .glyphicon {
+  top: 0px;
+}
+
+.footer {
+  margin: 7em 0 1em 0;
+  padding: 1em 0 1em 0;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+
+.user-autocomplete.form-inline .search-username {
+  width: 200px;
+}
+.user-autocomplete.form-inline .display-username {
+  width: 320px;
+}
+
+.profile-header {
+  height: 221px;
+  width:100%;
+  background-color: #2c2c2c;  
+}
+
+.banner-title-big {
+  /* For Safari 3.1 to 6.0 */
+    -webkit-transition-property: padding;
+    -webkit-transition-duration: 0.23s;
+    -webkit-transition-timing-function: exponential;
+    -webkit-transition-delay: 0s;
+    /* Standard syntax */
+    transition-property: padding;
+    transition-duration: 0.23s;
+    transition-timing-function: exponential;
+    transition-delay: 0s;
+  display: inline-block;
+  padding: 33px 0px 0px 0px;
+  font-size: 200px;
+  overflow: hidden;
+  color: #cbcbcd;
+  height: 220px;
+}
+
+.banner-title-big:hover {
+  padding: 0px 0px 0px 0px ;
+}
+
+
+.lol-match-player-name {
+
+}
+.lol-match-icon {
+  height: 28px;
+  width: 28px;
+  display: inline-block;
+  box-shadow: 0px 0px 1px #949494;
+}
+.lol-match {
+  padding: 20px 0px 0px 0px;
+}
+.lol-match-player-level {
+  font-size: 10px;
+  display: inline-block;
+}
+
+.lol-match-item-group {
+  vertical-align: middle;
+}
+
+.main_content{
+}
+
+.open_sans{
+  font-family: 'Open Sans', sans-serif;
+}
+
+.spinner{
+  text-align: center;
+  padding-top: 10px;
+  display: inline-block;
+  position: absolute;
+}
+
+.player-links {
+  padding: 10px 0px 0px 0px;
+}
+
+.circle-medium {
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px; 
+  position: absolute;
+}
+.league_description {
+  max-height:100px;
+}
+
+
+
+.season-stats{
+  position: relative;
+  min-height: 150px;
+  overflow: hidden;
+  width: 100%;
+  padding: 10px 0 0 0;
+}
+.season-stats .stat-list{
+  float: left;
+  width: 100%;
+}
+.season-stats .stat-list li{
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  padding: 20px 5px 15px 5px;
+}
+
+.season-stats .stat-list .stat-label{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.95em;
+  position: absolute;
+  bottom: 10px;
+  text-transform: uppercase;
+  width: 120px;
+  margin-bottom: -5px;
+}
+
+.season-stats .stat-list .stat-value{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 50px;
+  width: 120px;
+  margin-top: -5px;
+  padding-bottom: 5px;
+
+}
+
+.player-teams{
+
+}
+
+.top-buffer { margin-top:20px; }
+
+.color-pallette{
+  #0ba89c teal
+  #7c1c22 red
+  #2b382b dark green
+  #2c2c2c dark grey
+  #949494 grey
+  #cbcbcd light grey
+  #060708 black
+}

@@ -7,23 +7,23 @@
           
 <!-- Register Content -->
 <?php echo validation_errors(); ?>
-<?php echo form_open('register', array('class' => 'form-horizontal', 'id' => 'lolSummonerRegistration')); ?>
+<?php echo form_open('register', array('class' => 'form-horizontal', 'id' => 'initial-registration')); ?>
   <div class="form-group">
     <?php echo form_label('Email', 'name', array('class' => 'col-sm-2 control-label')); ?>
     <div class="col-sm-10">
-      <?php echo form_input(array('name' => 'email', 'class' => 'form-control', 'placeholder' => 'Email Address', 'value' => set_value('email'))); ?>
+      <?php echo form_input(array('name' => 'email', 'class' => 'form-control', 'placeholder' => 'Email Address', 'id' => 'email')); ?>
     </div>
   </div>
   <div class="form-group">
     <?php echo form_label('Password', 'name', array('class' => 'col-sm-2 control-label')); ?>
     <div class="col-sm-10">
-      <?php echo form_password(array('name' => 'password1', 'class' => 'form-control', 'placeholder' => 'Password')); ?>
+      <?php echo form_password(array('name' => 'password1', 'class' => 'form-control', 'placeholder' => 'Password', 'id' => 'password1')); ?>
     </div>
   </div>
   <div class="form-group">
     <?php echo form_label('Re-Enter Password', 'name', array('class' => 'col-sm-2 control-label')); ?>
     <div class="col-sm-10">
-      <?php echo form_password(array('name' => 'password2', 'class' => 'form-control', 'placeholder' => 'Re-Enter Password')); ?>
+      <?php echo form_password(array('name' => 'password2', 'class' => 'form-control', 'placeholder' => 'Re-Enter Password', 'id' => 'password2')); ?>
     </div>
   </div>
   <div class="form-group">
@@ -44,7 +44,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-1 col-sm-offset-3">
-      <?php echo form_submit('submit', 'Verify', "class='btn btn-default'"); ?>
+      <?php echo form_submit('submit', 'Verify', "class='btn btn-default' id='original_registration_submit'"); ?>
     </div>
     <div class="col-sm-7" id="summoner_validation_error">
     </div>

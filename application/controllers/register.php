@@ -15,28 +15,7 @@ class Register extends MY_Controller
   public function index()
   {
     //Validation on input (requires that all fields exist)
-   //$this->load->library('form_validation');
-
-    //$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|callback_unique_email');
-    //$this->form_validation->set_rules('password1', 'Password', 'required|xss_clean|callback_password_match');
-    //$this->form_validation->set_rules('password2', 'Re-Password', 'required|xss_clean');
-
-    //$this->form_validation->set_rules('summonername', 'Summoner Name', 'trim|required');
-
-    //if($this->form_validation->run() == FALSE)
-    //{
-      $this->view_wrapper('register');
-    //} 
-
-    //else
-    //{
-    //  $ip = $this->input->ip_address();
-
-    //  $user = $this->input->post();
-    //  $user['password'] = $this->password_hash($user['password1']);
-      //Save user object and get key to send to user email.
-    //  $_SESSION['pending_user'] = $user;
-    
+    $this->view_wrapper('register');
   }
 
   public function password_match($pw1)
@@ -68,10 +47,31 @@ class Register extends MY_Controller
       return TRUE;
     }
   }
- private function create()
+ public function create()
   {
-    $user = $_SESSION['user'];
-    $this->system_message_model->set_message($user['name'] . ', you have successfully linked your League of Legends account!', MESSAGE_INFO);
-    redirect('home','refresh');
+    $this->load->library('form_validation');
+
+    $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|callback_unique_email');
+    $this->form_validation->set_rules('password1', 'Password', 'required|xss_clean|callback_password_match');
+    $this->form_validation->set_rules('password2', 'Re-Password', 'required|xss_clean');
+
+    $this->form_validation->set_rules('summonername', 'Summoner Name', 'trim|required');
+
+    if($this->form_validation->run() == FALSE)
+    {
+      $this->view_wrapper('register');
+    } 
+    else
+    {
+      $ip = $this->input->ip_address();
+      $user = $this->input->post();
+      $user['password'] = $this->password_hash($user['password1']);
+      //Save user object and get key to send to user email.
+      $user['id'] = $_SESSION['player']['id'];
+      $user['name'] = $_SESSION['player']['name'];
+      $this->user_model->create($user);
+      $this->system_message_model->set_message($user['name'] . ', you have successfully linked your League of Legends account! You can now post comments.', MESSAGE_INFO);
+      $this->view_wrapper('home');
+    }  
   }
 }

@@ -1,17 +1,38 @@
 
 //ajax call for summoner validation process.
-$('#lolSummonerRegistration').submit(function(event) 
+$(document).on('submit','#initial-registration',function(event)
 {
     event.preventDefault();
     /* Clear rune page div*/
     $("#authenticate_runepage_page").html('');
     $("#summoner_validation_error").html('');
 
+
+    var email = document.getElementById("email").value;
+    var regex = /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/;
+    if(!regex.test(email))
+    {
+        $("#summoner_validation_error").html('Email must be a valid format '+ email );
+        return;
+    }
+
+    var pass1 = document.getElementById("password1").value;
+    var pass2 = document.getElementById("password2").value;
+
+    if(pass1 == "" || pass2 == "" || pass1 != pass2)
+    {
+        $("#summoner_validation_error").html('Passwords must match and can\'t be empty');
+        return;
+    }
+
     /* Get some values from elements on the page: */
-   var summonername = document.getElementById("summonername").value;
-   if(summonername == "")
-    summonername = "-";
-   var region = document.getElementById("region").firstChild.data;
+    var summonername = document.getElementById("summonername").value;
+    if(summonername == "")
+        summonername = "-";
+    
+    var region = document.getElementById("region").firstChild.data;
+    $("#authenticate_runepage_page").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
+    
     
     /* Send the data using post and put the results in a div */
     $.ajax({
@@ -55,75 +76,34 @@ $(document).on('submit','#rune_page_verification',function(event) {
     });
 });
 
-//===== in player profile page ======
-$("#view-player-recent-matches").click(function(event) {
+$(document).on('submit','#submit_forms', function(event) {
     /* Stop form from submitting normally */
     event.preventDefault();
-
-    var playerid = $(event.currentTarget).attr('data-id');
-    /* Clear profile content*/
-    $("#main-content").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
-
-    $.ajax({
-            url: '/LoLRep/ajax/player_recent_matches/' + playerid,
-            type: "post",
-            data: {},
-            success: function(data){
-                $("#main-content").html(data);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                $("#main-content").html("error while loading team roster " + jqXHR + textStatus + " " + errorThrown );
-            }
-        });
+   $("#original_registration_submit").click();
 });
 
+$(document).on('submit','#search_summoner', function(event) {
 
-$("#view-player-upcoming-matches").click(function(event) {
-    /* Stop form from submitting normally */
     event.preventDefault();
-    var playerid = $(event.currentTarget).attr('data-id');
-    /* Clear profile content*/
-    
-    $("#main-content").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
-    
+    url_complete ='/LetItOut';
+    search_query = $("#search_textbox").val();
+
+    //if(search_query != "")
+    //{
+        url_complete += '/search/'+ search_query;
+    //}
 
     $.ajax({
-            url: '/LoLRep/ajax/player_upcoming_matches/' + playerid,
-            type: "post",
-            data: {},
-            success: function(data){
-                $("#main-content").html(data);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                $("#main-content").html("Error while loading upcoming matches :" + errorThrown );
-            }
-        });
+        url: url_complete,
+        type: "post",
+        data: {},
+        success: function(data){
+            $("#search_result").html(data);
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+        }
+    });
 });
-
-
-$("#view-player-stats").click(function(event) {
-    /* Stop form from submitting normally */
-    event.preventDefault();
-    var playerid = $(event.currentTarget).attr('data-id');
-    
-    /* Clear profile content*/
-    $("#main-content").html('');
-
-    $.ajax({
-            url: '/LoLRep/ajax/player_stats/' + playerid,
-            type: "post",
-            data: {},
-            success: function(data){
-                $("#main-content").html(data);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                $("#main-content").html("error while loading team " + textStatus + " " + errorThrown );
-            }
-        });
-});
-
-//===== ------------------------ ======
-
 
 // ======= in team profile page ===========
 $("#view-team-roster").click(function(event) {
@@ -136,48 +116,6 @@ $("#view-team-roster").click(function(event) {
 
     $.ajax({
             url: '/LoLRep/ajax/team_roster/' + teamid,
-            type: "post",
-            data: {},
-            success: function(data){
-                $("#main-content").html(data);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                $("#main-content").html("error while loading team roster " + jqXHR + textStatus + " " + errorThrown );
-            }
-        });
-});
-
-$("#view-team-recent-matches").click(function(event) {
-    /* Stop form from submitting normally */
-    event.preventDefault();
-
-    var teamid = $(event.currentTarget).attr('data-id');
-    /* Clear profile content*/
-    $("#main-content").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
-
-    $.ajax({
-            url: '/LoLRep/ajax/team_recent_matches/' + teamid,
-            type: "post",
-            data: {},
-            success: function(data){
-                $("#main-content").html(data);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                $("#main-content").html("error while loading team roster " + jqXHR + textStatus + " " + errorThrown );
-            }
-        });
-});
-
-$("#view-team-upcoming-matches").click(function(event) {
-    /* Stop form from submitting normally */
-    event.preventDefault();
-
-    var teamid = $(event.currentTarget).attr('data-id');
-    /* Clear profile content*/
-    $("#main-content").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
-
-    $.ajax({
-            url: '/LoLRep/ajax/team_upcoming_matches/' + teamid,
             type: "post",
             data: {},
             success: function(data){
@@ -210,9 +148,6 @@ $("#view-team-stats").click(function(event) {
         });
 });
 
-//===== ------------------------ ======
-
-
 
 //used to set value from left text input dropdown
 $(".region-list li a").click(function(event) {
@@ -220,196 +155,6 @@ $(".region-list li a").click(function(event) {
     var selText = $(this).text();
     $(this).parents('.input-group-btn').find('.dropdown-toggle').html(selText + '  <span class="caret"></span> ');
 });
-
-$("#ddlViewBy :selected").val()
-$('.datepicker').datepicker();
-$('.timepicker').timepicker();
-$('#mondaytimepicker').timepicker();
-$('#tuesdaytimepicker').timepicker();
-$('#wednesdaytimepicker').timepicker();
-$('#thursdaytimepicker').timepicker();
-$('#fridaytimepicker').timepicker();
-$('#saturdaytimepicker').timepicker();
-$('#sundaytimepicker').timepicker();
-$('#leaguestarttime').timepicker();
-
-$("#mondaycheckbox").change(function() {
-    if(this.checked) {
-        document.getElementById("mondaytime").className = "show";
-    }
-    else {
-        document.getElementById("mondaytime").className = "hidden";
-    }
-});
-$("#tuesdaycheckbox").change(function() {
-    if(this.checked) {
-        document.getElementById("tuesdaytime").className = "show";
-    }
-    else {
-        document.getElementById("tuesdaytime").className = "hidden";
-    }
-});
-$("#wednesdaycheckbox").change(function() {
-    if(this.checked) {
-        document.getElementById("wednesdaytime").className = "show";
-    }
-    else {
-        document.getElementById("wednesdaytime").className = "hidden";
-    }
-});
-$("#thursdaycheckbox").change(function() {
-    if(this.checked) {
-        document.getElementById("thursdaytime").className = "show";
-    }
-    else {
-        document.getElementById("thursdaytime").className = "hidden";
-    }
-});
-$("#fridaycheckbox").change(function() {
-    if(this.checked) {
-        document.getElementById("fridaytime").className = "show";
-    }
-    else {
-        document.getElementById("fridaytime").className = "hidden";
-    }
-});
-$("#saturdaycheckbox").change(function() {
-    if(this.checked) {
-        document.getElementById("saturdaytime").className = "show";
-    }
-    else {
-        document.getElementById("saturdaytime").className = "hidden";
-    }
-});
-$("#sundaycheckbox").change(function() {
-    if(this.checked) {
-        document.getElementById("sundaytime").className = "show";
-    }
-    else {
-        document.getElementById("sundaytime").className = "hidden";
-    }
-});
-
-
-//--------Logic for private/invite only league
-
-$("#inviteonlyleaguecheckbox").change(function() {
-    if(!this.checked) {
-        document.getElementById("privateleaguecheckbox").checked = false;
-    }
-});
-
-$("#privateleaguecheckbox").change(function() {
-    if(this.checked) {
-        document.getElementById("inviteonlyleaguecheckbox").checked = true;
-    }
-});
-//---------
-
-
-
-//==== LEAGUE SEARCH =======
-
-$("#league-search-text").keyup(function() {
-
-    var searchtext = document.getElementById("league-search-text").value;
-    var notfull = document.getElementById("league-not-full-checkbox").checked;
-    var notempty = document.getElementById("league-not-empty-checkbox").checked;
-    var inviteonly = document.getElementById("league-invite-only-checkbox").checked;
-
-    $.ajax({
-        url: '/LoLRep/ajax/search_leagues',
-        type: "post",
-        data: { 'notfull' : notfull, 'notempty' : notempty, 'inviteonly' : inviteonly, 'searchtext' : searchtext },
-        success: function(data){
-            $("#league-search-results").html(data);
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-            $("#league-search-results").html("Error while searching leagues " + jqXHR + textStatus + " " + errorThrown );
-        }
-    });
-});
-
-$("#league-not-full-checkbox").change(function() {
-    var searchtext = document.getElementById("league-search-text").value;
-    var notfull = this.checked;
-    var notempty = document.getElementById("league-not-empty-checkbox").checked;
-    var inviteonly = document.getElementById("league-invite-only-checkbox").checked;
-    
-    $.ajax({
-        url: '/LoLRep/ajax/search_leagues',
-        type: "post",
-        data: { 'notfull' : notfull, 'notempty' : notempty, 'inviteonly' : inviteonly, 'searchtext' : searchtext },
-        success: function(data){
-            $("#league-search-results").html(data);
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-            $("#league-search-results").html("Error while searching leagues " + jqXHR + textStatus + " " + errorThrown );
-        }
-    });
-});
-
-$("#league-not-empty-checkbox").change(function() {
-    var searchtext = document.getElementById("league-search-text").value;
-    var notfull = document.getElementById("league-not-full-checkbox").checked;
-    var notempty = this.checked;
-    var inviteonly = document.getElementById("league-invite-only-checkbox").checked;
-    
-    $.ajax({
-        url: '/LoLRep/ajax/search_leagues',
-        type: "post",
-        data: { 'notfull' : notfull, 'notempty' : notempty, 'inviteonly' : inviteonly, 'searchtext' : searchtext },
-        success: function(data){
-            $("#league-search-results").html(data);
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-            $("#league-search-results").html("Error while searching leagues " + jqXHR + textStatus + " " + errorThrown );
-        }
-    });
-});
-
-$("#league-invite-only-checkbox").change(function() {
-    var searchtext = document.getElementById("league-search-text").value;
-    var notfull = document.getElementById("league-not-full-checkbox").checked;
-    var notempty = document.getElementById("league-not-empty-checkbox").checked;
-    var inviteonly = this.checked;
-    
-    $.ajax({
-        url: '/LoLRep/ajax/search_leagues',
-        type: "post",
-        data: { 'notfull' : notfull, 'notempty' : notempty, 'inviteonly' : inviteonly, 'searchtext' : searchtext },
-        success: function(data){
-            $("#league-search-results").html(data);
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-            $("#league-search-results").html("Error while searching leagues " + jqXHR + textStatus + " " + errorThrown );
-        }
-    });
-});
-$("#league-search-result").ready(function(){ 
-
-    $.ajax({
-            url: '/LoLRep/ajax/search_leagues',
-            type: "post",
-            data: { 'notfull' : false, 'notempty' : false, 'inviteonly' : false, 'searchtext' : "" },
-            success: function(data){
-                $("#league-search-results").html(data);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                $("#league-search-results").html("Error while searching leagues " + jqXHR + textStatus + " " + errorThrown );
-            }
-    });
- });
-
-
-//==== END = LEAGUE SEARCH =======
-
-function loadleagues()
-{
-    
-}
-
-
 
 function reloadLoLRegister(message) {
     alert("in reload");
@@ -423,14 +168,19 @@ function reloadLoLRegister(message) {
     });
 }
 
-function switchButtonToRegister(){
+function switchButtonToRegister()
+{
     button = document.getElementById('rune_page_verification_button');
-    button.setAttribute('id','create_player_button');
-    button.setAttribute('value','Register');
-    form = document.getElementById('rune_page_verification');
-    form.setAttribute('id','create');
-    form.setAttribute('action', 'register/create');
+    button.setAttribute('id','create_user');
+    button.setAttribute('value','Complete Registration');
+    original_form = document.getElementById('initial-registration');
+    original_form.setAttribute('action', 'register/create');
+    original_form.setAttribute('id','create_user_form');
+    rune_page_form = document.getElementById('rune_page_verification');
+    rune_page_form.setAttribute('id', 'submit_forms')
+    
 }
+
 
 $('textarea.form-control').maxlength({
             threshold: 20,

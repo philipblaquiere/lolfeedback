@@ -5,9 +5,12 @@ class Sign_in extends MY_Controller
 	/**
 	 * Constructor: initialize required libraries.
 	 */
+
 	public function __construct()
   {
     parent::__construct();
+    $this->CI =& get_instance();
+    $this->CI->load->library('recent_games');
     $this->load->model('user_model');
     $this->load->model('system_message_model');
   }
@@ -39,7 +42,7 @@ class Sign_in extends MY_Controller
     if($this->form_validation->run() == FALSE)
     {
         $this->view_wrapper('sign_in');
-    } 
+    }
     else
     {
       //get sign in form data
@@ -54,9 +57,10 @@ class Sign_in extends MY_Controller
       }
       else if($this->_validate_password($user,$password)) 
       {
-        $this->user_model->log_login($user['userid']);
+        $this->user_model->log_login($user['id']);
+        $this->set_user($user);
         $this->system_message_model->set_message('Welcome, ' . $user['name'], MESSAGE_INFO);
-        redirect('home', 'location');
+        redirect('summoner', 'location');
       }
       else
       {
@@ -75,7 +79,8 @@ class Sign_in extends MY_Controller
     redirect('home', 'location');
   }
 
-  private function _validate_password($user,$password) {
+  private function _validate_password($user,$password)
+  {
     if(!$password || !$user['email'])
       return false;
     return $user['password'] === $this->password_hash($password);
