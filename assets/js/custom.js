@@ -82,28 +82,6 @@ $(document).on('submit','#submit_forms', function(event) {
    $("#original_registration_submit").click();
 });
 
-$(document).on('submit','#search_summoner', function(event) {
-
-    event.preventDefault();
-    url_complete ='/LetItOut';
-    search_query = $("#search_textbox").val();
-
-    //if(search_query != "")
-    //{
-        url_complete += '/search/'+ search_query;
-    //}
-
-    $.ajax({
-        url: url_complete,
-        type: "post",
-        data: {},
-        success: function(data){
-            $("#search_result").html(data);
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-        }
-    });
-});
 
 // ======= in team profile page ===========
 $("#view-team-roster").click(function(event) {

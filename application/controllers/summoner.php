@@ -20,15 +20,16 @@ class Summoner extends MY_Controller
 	{
 		if($this->is_logged_in() && $id == 'index')
 		{
-			$data['games'] = $this->recent_games->get($this->get_userid());
+			$id = $this->get_userid();
+			$data['games'] = $this->recent_games->get($id);
 		}
 		else
 		{
 			$data['games'] = NULL;
 		}
+		print_r($data['games']);
 
 		$summoner_name = $this->lol_api->getSummoner($id, 'name');
-
 		if(empty($summoner_name))
 		{
 			$data['title'] = "No summoner found";

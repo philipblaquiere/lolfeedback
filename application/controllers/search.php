@@ -8,15 +8,11 @@ class Search extends MY_Controller
 		$this->load->library('lol_api');
 	}
 
-	function _remap($search_query)
+	public function index()
 	{
-		$this->index($search_query);
-	}
-
-	public function index($search_query)
-	{
-		$summoner = $this->lol_api->getSummonerByName(urldecode($search_query));
-
+		$result = $this->input->post();
+		$summoner_name = $result['search'];
+		$summoner = $this->lol_api->getSummonerByName(urldecode($summoner_name));
 		if(empty($summoner))
 		{
 			$id = "";
