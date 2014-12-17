@@ -161,6 +161,43 @@ function switchButtonToRegister()
 
 
 $('textarea.form-control').maxlength({
-            threshold: 20,
-            placement: 'bottom-right'
-        });
+    threshold: 20,
+    placement: 'bottom-right'
+});
+
+$(".review").click(function(event){
+    var buttonId = this.id;
+    var ids = buttonId.split("_");
+    var reviewArea = document.getElementById(buttonId);
+    if(ids.length != 3)
+    {
+        return;
+    }
+
+    $("#"+buttonId).html('');
+    var userId = ids[0]
+    var revieweeId = ids[1]
+    var gameId = ids[2]
+
+    for(var skillId = 1; skillId < 5; skillId++)
+    {
+        var row = document.createElement('div')
+        row.setAttribute('class', 'row');
+        var radioSkills1 = document.createElement('div')
+        radioSkills1.setAttribute('class', 'btn-group btn-group-sm')
+        radioSkills1.setAttribute('role', 'group')
+        radioSkills1.setAttribute('aria-label', 'Delivery')
+        for (var i = 1; i < 6; i++)
+        {
+            var skillButton = document.createElement('input')
+            skillButton.setAttribute('type', 'button')
+            skillButton.setAttribute('class', 'btn btn-default')
+            skillButton.setAttribute('value', i)
+            radioSkills1.appendChild(skillButton);
+        }
+        row.appendChild(radioSkills1)
+        reviewArea.appendChild(row)
+    }
+    
+});
+
