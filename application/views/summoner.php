@@ -47,9 +47,9 @@
 
     <table class="table table-condensed">
     <?php for ($i=0; $i < count($game['200']); $i++) { ?>
-    <tr>
+     <tr>
       <td>
-        <?php if(isset($game['100'][$i]['championSprite'])) { ?>
+        <?php if(isset($game['200'][$i]['championSprite'])) { ?>
           <span class="pull-left">
             <img src="<?php echo $game['200'][$i]['championSprite'] ?>" class="img-responsive lol-match-icon" alt="Responsive image">
           </span>
@@ -61,103 +61,9 @@
         </span>
       </td>
       <td>
-        <a href="#" id="review_summoner">review</a>
-      </td>
-      <td>
-        <table >
-          <tr>
-            <td>
-              Game-sense
-            </td>
-            <td>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill1"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill1" . "_" . 1; ?>" value="1" >1</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill1"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill1" . "_" . 2; ?>"value="2" >2</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill1"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill1" . "_" . 3; ?>" value="3" checked>3</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill1"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill1" . "_" . 4; ?>" value="4" >4</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill1"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill1" . "_" . 5; ?>" value="5" >5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Helpful
-            </td>
-            <td>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill2"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill2" . "_" . 1; ?>" value="1" >1</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill2"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill2" . "_" . 2; ?>"value="2" >2</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill2"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill2" . "_" . 3; ?>" value="3" checked>3</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill2"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill2" . "_" . 4; ?>" value="4" >4</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill2"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill2" . "_" . 5; ?>" value="5" >5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Skillful
-            </td>
-            <td>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill3"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill3" . "_" . 1; ?>" value="1" >1</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill3"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill3" . "_" . 2; ?>"value="2" >2</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill3"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill3" . "_" . 3; ?>" value="3" checked>3</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill3"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill3" . "_" . 4; ?>" value="4" >4</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill3"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill3" . "_" . 5; ?>" value="5" >5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-            Delivery
-            </td>
-            <td>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill4"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill4" . "_" . 1; ?>" value="1" >1</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill4"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill4" . "_" . 2; ?>"value="2" >2</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill4"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill4" . "_" . 3; ?>" value="3" checked>3</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill4"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill4" . "_" . 4; ?>" value="4" >4</label>
-              </div>
-              <div class="radio-inline">
-                <label><input type="radio" name="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill4"; ?>"  id="<?php echo $_SESSION['user']['id']."_" . $gameid . "_" . $game['200'][$i]['summonerId'] . "_skill4" . "_" . 5; ?>" value="5" >5</label>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </td>
-      <td>
-        <input type="text-inline" class="form-control" placeholder="Input">
-        <input type="submit" value="Submit Review" class="btn btn-default btn-sm" />
+        <div id="<?php echo $_SESSION['user']['id'] . "_" . $game['200'][$i]['summonerId'] . "_" . $gameid?>">
+          <button type="button" id="<?php echo $_SESSION['user']['id'] . "_" . $game['200'][$i]['summonerId'] . "_" . $gameid?>" class="btn btn-link review" name="review_summoner">review</button>
+        </div>
       </td>
     </tr>
     <?php } ?>
