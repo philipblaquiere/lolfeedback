@@ -37,9 +37,12 @@
         </span>
       </td>
       <td>
-        <div id="<?php echo $_SESSION['user']['id'] . "_" . $game['100'][$i]['summonerId'] . "_" . $gameid?>">
-          <button type="button" id="<?php echo $_SESSION['user']['id'] . "_" . $game['100'][$i]['summonerId'] . "_" . $gameid?>" class="btn btn-link review" name="review_summoner">review</button>
+      <?php if(array_key_exists($_SESSION['user']['id'] . "-" . $game['100'][$i]['summonerId'] . "-" . $gameid, $current)) { ?>
+       <?php } else if($_SESSION['user']['id'] != $game['100'][$i]['summonerId']) { ?>
+        <div id="<?php echo $_SESSION['user']['id'] . "-" . $game['100'][$i]['summonerId'] . "-" . $gameid?>">
+          <button type="button" id="<?php echo $_SESSION['user']['id'] . "-" . $game['100'][$i]['summonerId'] . "-" . $gameid?>" class="btn btn-link review" name="review_summoner">review</button>
         </div>
+      <?php } ?>
       </td>
     </tr>
     <?php } ?>
@@ -61,14 +64,15 @@
         </span>
       </td>
       <td>
-        <div id="<?php echo $_SESSION['user']['id'] . "_" . $game['200'][$i]['summonerId'] . "_" . $gameid?>">
-          <button type="button" id="<?php echo $_SESSION['user']['id'] . "_" . $game['200'][$i]['summonerId'] . "_" . $gameid?>" class="btn btn-link review" name="review_summoner">review</button>
+      <?php if($_SESSION['user']['id'] != $game['200'][$i]['summonerId']) { ?>
+        <div id="<?php echo $_SESSION['user']['id'] . "-" . $game['200'][$i]['summonerId'] . "-" . $gameid?>">
+          <button type="button" id="<?php echo $_SESSION['user']['id'] . "-" . $game['200'][$i]['summonerId'] . "-" . $gameid?>" class="btn btn-link review" name="review_summoner">review</button>
         </div>
+      <?php } ?> 
       </td>
     </tr>
     <?php } ?>
     </table>
-
     <?php } ?>
   </div>
   <?php } ?>

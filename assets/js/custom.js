@@ -167,37 +167,98 @@ $('textarea.form-control').maxlength({
 
 $(".review").click(function(event){
     var buttonId = this.id;
-    var ids = buttonId.split("_");
-    var reviewArea = document.getElementById(buttonId);
+    var ids = buttonId.split("-");
+    var reviewArea = document.getElementById(buttonId)
+
+    var userid = ids[0]
+    var revieweeid = ids[1]
+    var gameid = ids[2]
+
     if(ids.length != 3)
     {
         return;
     }
 
-    $("#"+buttonId).html('');
-    var userId = ids[0]
-    var revieweeId = ids[1]
-    var gameId = ids[2]
-
-    for(var skillId = 1; skillId < 5; skillId++)
-    {
-        var row = document.createElement('div')
-        row.setAttribute('class', 'row');
-        var radioSkills1 = document.createElement('div')
-        radioSkills1.setAttribute('class', 'btn-group btn-group-sm')
-        radioSkills1.setAttribute('role', 'group')
-        radioSkills1.setAttribute('aria-label', 'Delivery')
-        for (var i = 1; i < 6; i++)
-        {
-            var skillButton = document.createElement('input')
-            skillButton.setAttribute('type', 'button')
-            skillButton.setAttribute('class', 'btn btn-default')
-            skillButton.setAttribute('value', i)
-            radioSkills1.appendChild(skillButton);
-        }
-        row.appendChild(radioSkills1)
-        reviewArea.appendChild(row)
+    var review = {
+        fromid: userid,
+        toid: revieweeid,
+        id: buttonId,
+        gameid: gameid
     }
+
+    /* Send the data using post and put the results in a div */
+    $.ajax({
+        url: "review/create",
+        type: 'POST',
+        data: review,
+        success: function(data){
+            $("#"+buttonId).html('');
+            for(var skillId = 1; skillId < 5; skillId++)
+            {
+                var row = document.createElement('div')
+                row.setAttribute('class', 'row');
+                var radioSkills1 = document.createElement('div')
+                radioSkills1.setAttribute('class', 'btn-group btn-group-sm')
+                radioSkills1.setAttribute('role', 'group')
+                radioSkills1.setAttribute('aria-label', 'Delivery')
+                for (var i = 1; i < 6; i++)
+                {
+                    var skillButton = document.createElement('input')
+                    skillButton.setAttribute('type', 'button')
+                    skillButton.setAttribute('class', 'btn btn-default skill-button')
+                    skillButton.setAttribute('value', i)
+                    skillButton.setAttribute('id', buttonId +"-"+skillId+"-"+i)
+                    radioSkills1.appendChild(skillButton);
+                }
+                row.appendChild(radioSkills1)
+                reviewArea.appendChild(row)
+            }
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            $("#"+buttonId).html('An error has occured creating the review:' + textStatus);
+            return;
+        }
+    });
+
     
+    
+});
+
+$(document).on('click', ".skill-button", function() {
+    var buttonId = this.id;
+    var ids = buttonId.split("-");
+    
+    if(ids.length != 5)
+    {
+        return;
+    }
+
+    var userid = ids[0]
+    var revieweeid = ids[1]
+    var gameid = ids[2]
+    var reviewid = userid + "-" + revieweeid + "-" + gameid
+    var skillNum = ids[3]
+    var skillVal = ids[4]
+
+    var reviewArea = document.getElementById(reviewid)
+
+    var review = {
+        id: reviewid,
+        skill: skillNum,
+        value: skillVal
+    }
+
+    /* Send the data using post and put the results in a div */
+    $.ajax({
+        url: "review/update",
+        type: 'POST',
+        data: review,
+        success: function(data){
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            $("#"+buttonId).html('An error has occured creating the review:' + textStatus);
+            return;
+        }
+    });
 });
 

@@ -27,8 +27,8 @@ class Summoner extends MY_Controller
 		{
 			$data['games'] = NULL;
 		}
-		print_r($data['games']);
-
+		$gameids = array_keys($data['games']);
+		
 		$summoner_name = $this->lol_api->getSummoner($id, 'name');
 		if(empty($summoner_name))
 		{
@@ -39,6 +39,9 @@ class Summoner extends MY_Controller
 		{
 			$data['title'] = $summoner_name[$id];
 			$reviews = $this->review_model->get($id);
+			$current_reviews = $this->review_model->recent($gameids);
+			$data['current'] = $current_reviews;
+			print_r($current_reviews);
 			if(empty($reviews))
 			{
 				$data['sub_title'] = "No game reviews have been left for " . $data['title'] . "!"; 
