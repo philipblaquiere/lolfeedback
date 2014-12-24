@@ -86,6 +86,11 @@ class MY_Controller extends CI_Controller  {
    */
   protected function require_login()
   {
+    if(!$this->is_logged_in())
+    {
+      $this->system_message_model->set_message('You need to be logged in to do that', MESSAGE_WARNING);
+      redirect('home','location');
+    }
   }
 
   /**

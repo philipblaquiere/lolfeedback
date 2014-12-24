@@ -18,16 +18,19 @@ class Summoner extends MY_Controller
 
 	public function index($id)
 	{
-		if($this->is_logged_in() && $id == 'index')
+		
+		if($this->is_logged_in() && ($id == 'index' || $id == $this->get_userid()))
 		{
 			$id = $this->get_userid();
 			$data['games'] = $this->recent_games->get($id);
+			$gameids = array_keys($data['games']);
+			$_SESSION['user']['recent_gameids'] = $gameids;
+			print_r($_SESSION['user']);
 		}
 		else
 		{
 			$data['games'] = NULL;
 		}
-		$gameids = array_keys($data['games']);
 		
 		$summoner_name = $this->lol_api->getSummoner($id, 'name');
 		if(empty($summoner_name))
@@ -39,9 +42,13 @@ class Summoner extends MY_Controller
 		{
 			$data['title'] = $summoner_name[$id];
 			$reviews = $this->review_model->get($id);
-			$current_reviews = $this->review_model->recent($gameids);
-			$data['current'] = $current_reviews;
-			print_r($current_reviews);
+			if($data['games'] != NULL)
+			{
+				$current_reviews = $this->review_model->recent($gameids);
+				$data['current'] = $current_reviews;
+				print_r($current_reviews);
+			}
+
 			if(empty($reviews))
 			{
 				$data['sub_title'] = "No game reviews have been left for " . $data['title'] . "!"; 

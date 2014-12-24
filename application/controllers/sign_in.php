@@ -10,7 +10,6 @@ class Sign_in extends MY_Controller
   {
     parent::__construct();
     $this->CI =& get_instance();
-    $this->CI->load->library('recent_games');
     $this->load->model('user_model');
     $this->load->model('system_message_model');
   }

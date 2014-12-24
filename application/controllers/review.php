@@ -10,10 +10,19 @@ class Review extends MY_Controller
 
 	public function create()
 	{
+		//$this->require_login();
+
 		$review = $_POST;
-		if(!array_key_exists('id', $review) || !array_key_exists('gameid', $review))
+
+		if(!array_key_exists('id', $review) ||
+			!array_key_exists('gameid', $review) ||
+			!array_key_exists('fromid', $review) ||
+			!array_key_exists('toid', $review) ||
+			$_SESSION['user']['id'] != $review['fromid'] ||
+			!in_array($review['gameid'], $_SESSION['user']['recent_gameids'])
+			)
 		{
-			return;
+			return FALSE;
 		}
 		$this->review_model->create($review);
 	}
@@ -23,7 +32,7 @@ class Review extends MY_Controller
 		$review = $_POST;
 		if(!array_key_exists('skill', $review) || !array_key_exists('id', $review))
 		{
-			return;
+			return FALSE;
 		}
 		$this->review_model->update($review);
 	}
