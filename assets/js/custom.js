@@ -173,6 +173,7 @@ $(".review").click(function(event){
     var userid = ids[0]
     var revieweeid = ids[1]
     var gameid = ids[2]
+    var skillNames = ['','Game-Sense','Helpful','Skillful','Delivery']
 
     if(ids.length != 3)
     {
@@ -195,12 +196,14 @@ $(".review").click(function(event){
             $("#"+buttonId).html('');
             for(var skillId = 1; skillId < 5; skillId++)
             {
+
                 var row = document.createElement('div')
                 row.setAttribute('class', 'row');
                 var radioSkills1 = document.createElement('div')
                 radioSkills1.setAttribute('class', 'btn-group btn-group-sm')
                 radioSkills1.setAttribute('role', 'group')
-                radioSkills1.setAttribute('aria-label', 'Delivery')
+                radioSkills1.setAttribute('aria-label', skillNames[skillId])
+                //row.textContent = skillNames[skillId]
                 for (var i = 1; i < 6; i++)
                 {
                     var skillButton = document.createElement('input')
