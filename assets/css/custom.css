@@ -165,17 +165,17 @@
   padding: 20px 5px 15px 5px;
 }
 
-.season-stats .stat-list .stat-label{
+.stat-label{
   font-family: 'Open Sans', sans-serif;
   font-size: 0.95em;
   position: absolute;
-  bottom: 10px;
+  bottom: 3px;
   text-transform: uppercase;
   width: 120px;
   margin-bottom: -5px;
 }
 
-.season-stats .stat-list .stat-value{
+.stat-value{
   font-family: 'Open Sans', sans-serif;
   font-size: 50px;
   width: 120px;

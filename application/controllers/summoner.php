@@ -46,7 +46,6 @@ class Summoner extends MY_Controller
 			{
 				$current_reviews = $this->review_model->recent($gameids);
 				$data['current'] = $current_reviews;
-				print_r($current_reviews);
 			}
 
 			if(empty($reviews))
@@ -56,6 +55,8 @@ class Summoner extends MY_Controller
 			else
 			{
 				//parse data and display.
+				$data['stats'] = $this->review_model->statistics($id);
+				print_r($data['stats']);
 				$data['sub_title'] = "Look below for game reviews";
 			}
 		}

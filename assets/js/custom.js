@@ -173,7 +173,8 @@ $(".review").click(function(event){
     var userid = ids[0]
     var revieweeid = ids[1]
     var gameid = ids[2]
-    var skillNames = ['','Game-Sense','Helpful','Skillful','Delivery']
+    var skillNames = ['','Game Sense','Helpful','Skillful','Delivery']
+    var skillDescriptions = ['', 'Deep understanding of team oriented goals, team player, a leader', 'Cooperated, jumped on opportunities to educate','Demonstrated intellectual prowness through gameplay', 'Polite, clear and concise when communicating']
 
     if(ids.length != 3)
     {
@@ -194,26 +195,45 @@ $(".review").click(function(event){
         data: review,
         success: function(data){
             $("#"+buttonId).html('');
+
             for(var skillId = 1; skillId < 5; skillId++)
             {
-
                 var row = document.createElement('div')
                 row.setAttribute('class', 'row');
+                var labelColumn = document.createElement('div')
+                labelColumn.setAttribute('class', 'col-lg-3')
+
+                var skillColumn = document.createElement('div')
+                skillColumn.setAttribute('class', 'col-lg-5')
+                
+                var skillLabel = document.createElement('span')
+                skillLabel.setAttribute('data-toggle', 'tooltip')
+                skillLabel.setAttribute('class', 'text-muted text-right')
+                skillLabel.setAttribute('title', skillDescriptions[skillId])
+                skillLabel.insertAdjacentHTML('afterBegin', skillNames[skillId])
+
                 var radioSkills1 = document.createElement('div')
                 radioSkills1.setAttribute('class', 'btn-group btn-group-sm')
+                radioSkills1.setAttribute('data-toggle', 'buttons')
                 radioSkills1.setAttribute('role', 'group')
-                radioSkills1.setAttribute('aria-label', skillNames[skillId])
-                //row.textContent = skillNames[skillId]
                 for (var i = 1; i < 6; i++)
                 {
+                    var skillButtonLabel = document.createElement('label')
+                    skillButtonLabel.setAttribute('class', 'btn btn-default')
+                    skillButtonLabel.insertAdjacentHTML('afterBegin', i)
                     var skillButton = document.createElement('input')
-                    skillButton.setAttribute('type', 'button')
-                    skillButton.setAttribute('class', 'btn btn-default skill-button')
+                    skillButton.setAttribute('type', 'radio')
+                    skillButton.setAttribute('name',buttonId +"-"+skillId)
                     skillButton.setAttribute('value', i)
+                    skillButton.setAttribute('class', 'skill-radio')
                     skillButton.setAttribute('id', buttonId +"-"+skillId+"-"+i)
-                    radioSkills1.appendChild(skillButton);
+                    skillButtonLabel.appendChild(skillButton)
+                    radioSkills1.appendChild(skillButtonLabel);
                 }
-                row.appendChild(radioSkills1)
+                skillColumn.appendChild(radioSkills1)
+                labelColumn.appendChild(skillLabel)
+                row.appendChild(labelColumn)
+                row.appendChild(skillColumn)
                 reviewArea.appendChild(row)
             }
         },
@@ -227,7 +247,7 @@ $(".review").click(function(event){
     
 });
 
-$(document).on('click', ".skill-button", function() {
+$(document).on('change', ".skill-radio", function() {
     var buttonId = this.id;
     var ids = buttonId.split("-");
     

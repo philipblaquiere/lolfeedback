@@ -77,4 +77,18 @@ class Review_model extends CI_Model
 		$result = $this->db1->query($sql);
 		return $result->result_array();
 	}
+
+	public function statistics($id)
+	{
+		$sql = "SELECT AVG(NULLIF(skill1,0),AVG(NULLIF(skill2,0),AVG(NULLIF(skill3,0),AVG(NULLIF(skill4,0)
+				FROM reviews
+				WHERE toid = '$id'";
+		$result = $this->db1->query($sql);
+		$result = $result->row_array();
+		$skills['Game-Sense'] = round($result['AVG(skill1)'], 1);
+		$skills['Helpful'] = round($result['AVG(skill2)'], 1);
+		$skills['Skillful'] = round($result['AVG(skill3)'], 1);
+		$skills['Delivery'] = round($result['AVG(skill4)'], 1);
+		return $skills;
+	}
 }

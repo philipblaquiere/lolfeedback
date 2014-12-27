@@ -10,19 +10,19 @@
 <?php echo form_open('register', array('class' => 'form-horizontal', 'id' => 'initial-registration')); ?>
   <div class="form-group">
     <?php echo form_label('Email', 'name', array('class' => 'col-sm-2 control-label')); ?>
-    <div class="col-sm-10">
+    <div class="col-sm-4">
       <?php echo form_input(array('name' => 'email', 'class' => 'form-control', 'placeholder' => 'Email Address', 'id' => 'email')); ?>
     </div>
   </div>
   <div class="form-group">
     <?php echo form_label('Password', 'name', array('class' => 'col-sm-2 control-label')); ?>
-    <div class="col-sm-10">
+    <div class="col-sm-4">
       <?php echo form_password(array('name' => 'password1', 'class' => 'form-control', 'placeholder' => 'Password', 'id' => 'password1')); ?>
     </div>
   </div>
   <div class="form-group">
     <?php echo form_label('Re-Enter Password', 'name', array('class' => 'col-sm-2 control-label')); ?>
-    <div class="col-sm-10">
+    <div class="col-sm-4">
       <?php echo form_password(array('name' => 'password2', 'class' => 'form-control', 'placeholder' => 'Re-Enter Password', 'id' => 'password2')); ?>
     </div>
   </div>
@@ -30,7 +30,7 @@
     <div class="page-header"/>
   </div>
   <?php echo form_label('Summoner Name', 'summonername', array('class' => 'col-sm-2 control-label')); ?>
-    <div class="col-sm-10">
+    <div class="col-sm-4">
       <div class="input-group">
         <div class="input-group-btn">
           <button type="button" class="btn btn-default dropdown-toggle" id="region" data-toggle="dropdown">Region <span class="caret"></span></button>
