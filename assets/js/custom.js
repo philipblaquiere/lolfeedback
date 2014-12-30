@@ -201,19 +201,19 @@ $(".review").click(function(event){
                 var row = document.createElement('div')
                 row.setAttribute('class', 'row');
                 var labelColumn = document.createElement('div')
-                labelColumn.setAttribute('class', 'col-lg-3')
+                labelColumn.setAttribute('class', 'col-lg-4')
 
                 var skillColumn = document.createElement('div')
-                skillColumn.setAttribute('class', 'col-lg-5')
+                skillColumn.setAttribute('class', 'col-lg-6')
                 
                 var skillLabel = document.createElement('span')
                 skillLabel.setAttribute('data-toggle', 'tooltip')
-                skillLabel.setAttribute('class', 'text-muted text-right')
+                skillLabel.setAttribute('class', 'text-right text-muted pull-right')
                 skillLabel.setAttribute('title', skillDescriptions[skillId])
                 skillLabel.insertAdjacentHTML('afterBegin', skillNames[skillId])
 
                 var radioSkills1 = document.createElement('div')
-                radioSkills1.setAttribute('class', 'btn-group btn-group-sm')
+                radioSkills1.setAttribute('class', 'btn-group btn-group-sm pull-left')
                 radioSkills1.setAttribute('data-toggle', 'buttons')
                 radioSkills1.setAttribute('role', 'group')
                 for (var i = 1; i < 6; i++)

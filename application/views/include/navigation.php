@@ -16,8 +16,10 @@
         <ul class="nav navbar-nav navbar-right">
           <?php if ($is_logged_in): ?>
             <li class="dropdown">
-              <a href="<?php echo site_url('summoner/') . $_SESSION['user']['id']?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['user']['name']; ?><b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['user']['name']; ?><b class="caret"></b></a>
                 <ul class="dropdown-menu">
+                  <li><a href="<?php echo site_url('summoner') . "/" . $_SESSION['user']['id']?>" >Profile</a></li>
+                   <li role="presentation" class="divider"></li>
                   <li><a href="<?php echo site_url('sign_in/sign_out'); ?>">Sign out</a></li>
                 </ul>
             </li>
@@ -49,4 +51,5 @@
         </ul>
       </div>
     </div>
-  </nav><!-- Static nav -->
+  </nav>
+  <!-- Static nav -->

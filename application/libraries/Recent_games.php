@@ -39,7 +39,10 @@ class Recent_games
 	    	for ($i=0; $i < self::NUM_GAMES_RETURN; $i++)
 	    	{
 	    		if(array_key_exists($i, $recent_games[self::LOL_GAMES])) 
-	    		$games[$recent_games[self::LOL_GAMES][$i][self::LOL_GAMEID]] = $this->format($recent_games[self::LOL_GAMES][$i], $id, $player_names);
+                {
+                    $games[$recent_games[self::LOL_GAMES][$i][self::LOL_GAMEID]] = $this->format($recent_games[self::LOL_GAMES][$i], $id, $player_names);    
+                }
+	    		
 	    	}	
     	}
     	return $games;
@@ -48,6 +51,7 @@ class Recent_games
     private function format($game, $id, $player_names)
     {
         $fellow_players = $game[self::LOL_PLAYERS];
+        $time = unix_to_human($game[self::LOL_CREATEDATE]);
         
         //Add sign-in user first
         $formatted_game[$game[self::LOL_TEAMID]][0] =
@@ -81,6 +85,9 @@ class Recent_games
                         );
             }
         }
+        //add time to game
+        //TODO: get time zone
+        $formatted_game['time'] = unix_to_human(substr($game[self::LOL_CREATEDATE], 0, -3));
         return $formatted_game;
     }
 

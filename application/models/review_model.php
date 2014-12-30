@@ -80,15 +80,25 @@ class Review_model extends CI_Model
 
 	public function statistics($id)
 	{
-		$sql = "SELECT AVG(NULLIF(skill1,0),AVG(NULLIF(skill2,0),AVG(NULLIF(skill3,0),AVG(NULLIF(skill4,0)
+		$this->db1->trans_start();
+		$sql = "SELECT AVG(NULLIF(skill1,0)),AVG(NULLIF(skill2,0)),AVG(NULLIF(skill3,0)),AVG(NULLIF(skill4,0)), COUNT(toid) 
 				FROM reviews
 				WHERE toid = '$id'";
 		$result = $this->db1->query($sql);
-		$result = $result->row_array();
-		$skills['Game-Sense'] = round($result['AVG(skill1)'], 1);
-		$skills['Helpful'] = round($result['AVG(skill2)'], 1);
-		$skills['Skillful'] = round($result['AVG(skill3)'], 1);
-		$skills['Delivery'] = round($result['AVG(skill4)'], 1);
+		$result = $result->row_array(); 
+		$skills['Game-Sense'] = round($result['AVG(NULLIF(skill1,0))'], 1) == 0 ? '-' : round($result['AVG(NULLIF(skill1,0))'], 1);
+		$skills['Helpful'] = round($result['AVG(NULLIF(skill2,0))'], 1) == 0 ? '-' : round($result['AVG(NULLIF(skill2,0))'], 1);
+		$skills['Skillful'] = round($result['AVG(NULLIF(skill3,0))'], 1) == 0 ? '-' : round($result['AVG(NULLIF(skill3,0))'], 1);
+		$skills['Delivery'] = round($result['AVG(NULLIF(skill4,0))'], 1) == 0 ? '-' : round($result['AVG(NULLIF(skill4,0))'], 1);
+		$skills['Received'] = $result['COUNT(toid)'];
+
+		$sql = "SELECT COUNT(fromid)
+				FROM reviews
+				WHERE fromid='$id'";
+		$result = $this->db1->query($sql);
+		$this->db1->trans_complete();
+		$result = $result->row_array(); 
+		$skills['Given'] = $result['COUNT(fromid)'];
 		return $skills;
 	}
 }

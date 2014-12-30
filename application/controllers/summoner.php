@@ -25,7 +25,6 @@ class Summoner extends MY_Controller
 			$data['games'] = $this->recent_games->get($id);
 			$gameids = array_keys($data['games']);
 			$_SESSION['user']['recent_gameids'] = $gameids;
-			print_r($_SESSION['user']);
 		}
 		else
 		{
@@ -40,25 +39,27 @@ class Summoner extends MY_Controller
 		}
 		else
 		{
-			$data['title'] = $summoner_name[$id];
+			if(!array_key_exists($id, $summoner_name))
+			{
+				$data['title'] = "Summoner Not Found";
+			}
+			else
+			{
+				$data['title'] = $summoner_name[$id];
+			}
+			
 			$reviews = $this->review_model->get($id);
 			if($data['games'] != NULL)
 			{
 				$current_reviews = $this->review_model->recent($gameids);
 				$data['current'] = $current_reviews;
 			}
+			//parse data and display.
+			$stats = $this->review_model->statistics($id);
 
-			if(empty($reviews))
-			{
-				$data['sub_title'] = "No game reviews have been left for " . $data['title'] . "!"; 
-			}
-			else
-			{
-				//parse data and display.
-				$data['stats'] = $this->review_model->statistics($id);
-				print_r($data['stats']);
-				$data['sub_title'] = "Look below for game reviews";
-			}
+			$data['stats'] = array_slice($stats, 0, 4);
+			$data['review_stats'] = array_slice($stats, 4, 2);
+			$data['sub_title'] = "Look below for game reviews";
 		}
 		$this->view_wrapper('summoner', $data);
 	}
