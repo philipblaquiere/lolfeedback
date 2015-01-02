@@ -191,11 +191,14 @@
 .skill-label{
   padding-right: 10px;
 }
+.summoner-title{
+  font-family: 'Open Sans', sans-serif;
+}
 .summoner-icon{
   width: 34px;
 }
 .summoner-name{
-  width: 100px;
+  width: 120px;
   vertical-align: middle;
 }
 .summoner-stats{
@@ -235,7 +238,6 @@ ul
   max-width: 400px;
 }
 .summoner-games{
-  margin-left: -15px;
 }
 .top-buffer { margin-top:20px; }
 

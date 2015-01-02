@@ -67,7 +67,13 @@ class Review_model extends CI_Model
 	public function get($toid)
 	{
 		$sql = "SELECT * FROM reviews 
-				WHERE toid = '$toid'";
+
+				WHERE toid = '$toid'
+				AND (message IS NOT NULL
+				OR skill1 != 0
+				OR skill2 != 0
+				OR skill3 != 0
+				OR skill4 != 0)";
 		$result = $this->db1->query($sql);
 		return $result->result_array();
 	}
@@ -88,7 +94,12 @@ class Review_model extends CI_Model
 
 		$sql = "SELECT COUNT(fromid)
 				FROM reviews
-				WHERE fromid='$id'";
+				WHERE fromid='$id'
+				AND (message IS NOT NULL
+				OR skill1 != 0
+				OR skill2 != 0
+				OR skill3 != 0
+				OR skill4 != 0)";
 		$result = $this->db1->query($sql);
 		$this->db1->trans_complete();
 		$result = $result->row_array(); 
