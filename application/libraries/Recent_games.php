@@ -49,7 +49,7 @@ class Recent_games
     }
 
     private function format($game, $id, $player_names)
-    {
+    {        
         $fellow_players = $game[self::LOL_PLAYERS];
         $time = unix_to_human($game[self::LOL_CREATEDATE]);
         

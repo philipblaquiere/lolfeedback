@@ -35,7 +35,7 @@
         <div class="input-group-btn">
           <button type="button" class="btn btn-default dropdown-toggle" id="region" data-toggle="dropdown">Region <span class="caret"></span></button>
           <ul class="dropdown-menu region-list">
-            <li><a href="#">NA</a></li>
+            <li><a href="#" selected>NA</a></li>
           </ul>
         </div><!-- /btn-group -->
         <?php echo form_input(array('name' => 'summonername','id' => 'summonername', 'class' => 'form-control', 'placeholder' => 'Summoner Name')); ?>

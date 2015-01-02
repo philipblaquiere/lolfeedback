@@ -73,11 +73,13 @@ class MY_Controller extends CI_Controller  {
   protected function set_user($user)
   {
     $_SESSION['user'] = $user;
+    $_SESSION['player_names'] = array();
   }
 
   protected function destroy_session() 
   {
     unset($_SESSION['user']);
+    unset($_SESSION['player_names']);
   }
 
   /**

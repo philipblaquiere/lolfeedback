@@ -101,7 +101,8 @@
   height: 24px;
   width: 24px;
   display: inline-block;
-  box-shadow: 0px 0px 1px #949494;
+  box-shadow: 0px 0px 1px #949494;  
+  margin-top: 3px;
 }
 .lol-match {
   padding: 20px 0px 0px 0px;
@@ -178,12 +179,24 @@
   padding-bottom: 5px;
 
 }
-
+.skill-list{
+  max-width: 220px;
+  margin-left:-25px;
+  padding-bottom: 3px;
+}
+.skill-group{
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.skill-label{
+  padding-right: 10px;
+}
 .summoner-icon{
   width: 34px;
 }
 .summoner-name{
-  width: 150px;
+  width: 100px;
+  vertical-align: middle;
 }
 .summoner-stats{
   position:relative;
@@ -195,12 +208,40 @@
 .given-received-block{
   padding-top: 20px;
 }
-
-.summoner-reviews{
+.review-message{
+  max-width: 220px;
+  
+}
+.reviews-content{
+  box-shadow: 0px 0px 1px #949494; 
+  border-color: #949494;
+  border-radius: 3px;
+  padding-left:7px;
+  padding-right:3px;
+  padding-top:9px;
+  padding-bottom:1px;
+}
+.review-header{
+}
+ul
+{
+    list-style-type: none;
+}
+.site-header{
+  margin-left: 15px;
+}
+.search{
+  padding-right: 15px;
+  max-width: 400px;
+}
+.summoner-games{
   margin-left: -15px;
 }
 .top-buffer { margin-top:20px; }
 
+.summoner-reviews{
+
+}
 .color-pallette{
   #0ba89c teal
   #7c1c22 red

@@ -1,11 +1,11 @@
   <!-- Static navbar -->
   <nav class="navbar navbar-fixed-top" role="navigation">
     <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="<?php echo site_url('home'); ?>">LetItOut</a>
+      <div class="navbar-header pull-right ">
+        <a class="navbar-brand site-header" href="<?php echo site_url('home'); ?>">Perfect</a>
       </div>
       <?php echo form_open('search', array('class' => 'navbar-form navbar-right', 'id' => 'search_summoner', 'role' => 'search')); ?>
-        <div class="input-group">
+        <div class="input-group search">
             <?php echo form_input(array('name' => 'search', 'class' => 'form-control', 'placeholder' => 'Search Summoner', 'id' => 'search_textbox')); ?>
           <span class="input-group-btn">
             <button type="submit" class="btn btn-default">Search</button>

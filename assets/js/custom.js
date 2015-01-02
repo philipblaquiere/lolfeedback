@@ -28,24 +28,38 @@ $(document).on('submit','#initial-registration',function(event)
     /* Get some values from elements on the page: */
     var summonername = document.getElementById("summonername").value;
     if(summonername == "")
+    {
         summonername = "-";
-    
-    var region = document.getElementById("region").firstChild.data;
-    $("#authenticate_runepage_page").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
-    
-    
-    /* Send the data using post and put the results in a div */
+    }
+
+     /* Check db if email is already used*/
     $.ajax({
-        url: '/LetItOut/ajax/authenticate_summoner/'+ region +'/'+ summonername.trim(),
+        url: 'register/unique_email/'+ email.toLowerCase(),
         type: "post",
-        data: summonername,
+        data: {},
         success: function(data){
-            $("#authenticate_runepage_page").html(data);
+            var region = document.getElementById("region").firstChild.data;
+            $("#authenticate_runepage_page").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
+
+            /* Send the data using post and put the results in a div */
+            $.ajax({
+                url: 'ajax/authenticate_summoner/'+ region +'/'+ summonername.trim(),
+                type: "post",
+                data: summonername,
+                success: function(data){
+                    $("#authenticate_runepage_page").html(data);
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    $("#authenticate_runepage_page").html(summonername + " error " + textStatus + " " + errorThrown );
+                }
+            });
         },
-        error:function(jqXHR, textStatus, errorThrown){
-            $("#authenticate_runepage_page").html(summonername + " error " + textStatus + " " + errorThrown );
+        error:function(data,jqXHR, textStatus, errorThrown){
+            $("#summoner_validation_error").html("Email is already in use" + data);
         }
     });
+    
+    
 });
     
 $(document).on('submit','#rune_page_verification',function(event) {
@@ -57,7 +71,7 @@ $(document).on('submit','#rune_page_verification',function(event) {
 
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: '/LetItOut/ajax/rune_page_verification',
+        url: 'ajax/rune_page_verification',
         type: "get",
         data: {},
         success: function(data){
@@ -80,50 +94,6 @@ $(document).on('submit','#submit_forms', function(event) {
     /* Stop form from submitting normally */
     event.preventDefault();
    $("#original_registration_submit").click();
-});
-
-
-// ======= in team profile page ===========
-$("#view-team-roster").click(function(event) {
-    /* Stop form from submitting normally */
-    event.preventDefault();
-
-    var teamid = $(event.currentTarget).attr('data-id');
-    /* Clear profile content*/
-    $("#main-content").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
-
-    $.ajax({
-            url: '/LoLRep/ajax/team_roster/' + teamid,
-            type: "post",
-            data: {},
-            success: function(data){
-                $("#main-content").html(data);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                $("#main-content").html("error while loading team roster " + jqXHR + textStatus + " " + errorThrown );
-            }
-        });
-});
-
-$("#view-team-stats").click(function(event) {
-    /* Stop form from submitting normally */
-    event.preventDefault();
-
-    var teamid = $(event.currentTarget).attr('data-id');
-    /* Clear profile content*/
-    $("#main-content").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
-
-    $.ajax({
-            url: '/LoLRep/ajax/team_stats/' + teamid,
-            type: "post",
-            data: {},
-            success: function(data){
-                $("#main-content").html(data);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                $("#main-content").html("error while loading team stats " + jqXHR + textStatus + " " + errorThrown );
-            }
-        });
 });
 
 
@@ -159,16 +129,13 @@ function switchButtonToRegister()
     
 }
 
-
-$('textarea.form-control').maxlength({
-    threshold: 20,
-    placement: 'bottom-right'
-});
-
-$(".review").click(function(event){
+$(".review").click(function(event) {
     var buttonId = this.id;
+    $("#"+buttonId).html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
+
     var ids = buttonId.split("-");
     var reviewArea = document.getElementById(buttonId)
+    var messageArea = document.getElementById(buttonId+"-message")
 
     var userid = ids[0]
     var revieweeid = ids[1]
@@ -187,33 +154,32 @@ $(".review").click(function(event){
         id: buttonId,
         gameid: gameid
     }
-
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "review/create",
+        url: "/perfect/index.php/review/create",
         type: 'POST',
         data: review,
         success: function(data){
             $("#"+buttonId).html('');
+            var unorderedList = document.createElement('ul')
+            var skillList = document.createElement('div')
+            skillList.setAttribute('class','skill-list')
 
             for(var skillId = 1; skillId < 5; skillId++)
             {
-                var row = document.createElement('div')
-                row.setAttribute('class', 'row');
-                var labelColumn = document.createElement('div')
-                labelColumn.setAttribute('class', 'col-lg-4')
+                var row = document.createElement('li')
+                row.setAttribute('class', 'pull-right')
+                var skillGroup = document.createElement('div')
+                skillGroup.setAttribute('class','skill-group')
 
-                var skillColumn = document.createElement('div')
-                skillColumn.setAttribute('class', 'col-lg-6')
-                
                 var skillLabel = document.createElement('span')
                 skillLabel.setAttribute('data-toggle', 'tooltip')
-                skillLabel.setAttribute('class', 'text-right text-muted pull-right')
+                skillLabel.setAttribute('class', 'text-right text-muted skill-label')
                 skillLabel.setAttribute('title', skillDescriptions[skillId])
                 skillLabel.insertAdjacentHTML('afterBegin', skillNames[skillId])
 
                 var radioSkills1 = document.createElement('div')
-                radioSkills1.setAttribute('class', 'btn-group btn-group-sm pull-left')
+                radioSkills1.setAttribute('class', 'btn-group btn-group-sm ')
                 radioSkills1.setAttribute('data-toggle', 'buttons')
                 radioSkills1.setAttribute('role', 'group')
                 for (var i = 1; i < 6; i++)
@@ -230,22 +196,78 @@ $(".review").click(function(event){
                     skillButtonLabel.appendChild(skillButton)
                     radioSkills1.appendChild(skillButtonLabel);
                 }
-                skillColumn.appendChild(radioSkills1)
-                labelColumn.appendChild(skillLabel)
-                row.appendChild(labelColumn)
-                row.appendChild(skillColumn)
-                reviewArea.appendChild(row)
+                skillGroup.appendChild(skillLabel)
+                skillGroup.appendChild(radioSkills1)
+                row.appendChild(skillGroup)
+                skillList.appendChild(row)
+                unorderedList.appendChild(skillList)
             }
+            reviewArea.appendChild(unorderedList)
+            var formElement = document.createElement('form')
+            var messageElement = document.createElement('textarea')
+            messageElement.setAttribute('placeholder', 'Leave a comment')
+            messageElement.setAttribute('rows', '3')
+            messageElement.setAttribute('class', 'review-message')
+            messageElement.setAttribute('id', buttonId+"-content")
+            var messageButtonElement = document.createElement('button')
+            messageButtonElement.setAttribute('value', '1')
+            messageButtonElement.setAttribute('id', buttonId+"-message-button")
+            messageButtonElement.setAttribute('class', 'btn btn-default review-message-button')
+            messageButtonElement.insertAdjacentHTML('afterBegin','Post')
+            messageButtonElement.setAttribute('type', 'button')
+            formElement.appendChild(messageElement)
+            formElement.appendChild(messageButtonElement)
+            messageArea.appendChild(formElement)
         },
         error:function(jqXHR, textStatus, errorThrown){
-            $("#"+buttonId).html('An error has occured creating the review:' + textStatus);
+            $("#"+buttonId).html('An error has occured creating the review:' + textStatus)
             return;
         }
     });
-
-    
-    
 });
+
+$(document).on('click', ".review-message-button", function() {
+    var buttonId = this.id;
+    var ids = buttonId.split("-");
+
+    var userid = ids[0]
+    var revieweeid = ids[1]
+    var gameid = ids[2]
+    var reviewid = userid + "-" + revieweeid + "-" + gameid
+
+    var textArea = document.getElementById(reviewid+"-content")
+    if(textArea == null)
+    {
+        return
+    }
+    var message = textArea.value
+    if(!message)
+    {
+        return
+    }
+
+    var review = {
+        id: reviewid,
+        message: message
+    }
+
+    /* Send the data using post and put the results in a div */
+    $.ajax({
+        url: "/perfect/index.php/review/comment",
+        type: 'POST',
+        data: review,
+        success: function(data){
+            $("#"+reviewid+"-message").children().fadeOut(220, function() {
+                $("#"+reviewid+"-message").html('Comment Submitted')
+            });
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            $("#"+buttonId).html('An error has occured creating the review:' + textStatus+errorThrown);
+            return;
+        }
+    });
+});
+
 
 $(document).on('change', ".skill-radio", function() {
     var buttonId = this.id;
@@ -273,13 +295,13 @@ $(document).on('change', ".skill-radio", function() {
 
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "review/update",
+        url: "/perfect/index.php/review/update",
         type: 'POST',
         data: review,
         success: function(data){
         },
         error:function(jqXHR, textStatus, errorThrown){
-            $("#"+buttonId).html('An error has occured creating the review:' + textStatus);
+            $("#"+buttonId).html('An error has occured creating the review:' + textStatus +errorThrown);
             return;
         }
     });

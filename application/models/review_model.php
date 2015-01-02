@@ -10,39 +10,33 @@ class Review_model extends CI_Model
 
 	public function create($review)
 	{
-		$sql = "INSERT INTO reviews(id, fromid, toid, gameid)
-		VALUES ('" . $review['id'] . "','" . $review['fromid'] . "','" . $review['toid'] . "','"	. $review['gameid'] . "')";
+		$sql = "INSERT INTO reviews (id, fromid, from_name, toid, gameid)
+		VALUES ('" . $review['id'] . "','" . $review['fromid'] . "','" . $review['from_name'] . "','" . $review['toid'] . "','" . $review['gameid'] . "')";
 
 		$this->db1->query($sql);
 	}
 
 	public function update($review)
 	{
-		if(array_key_exists('skill', $review) && $review['skill'] <= 5 && $review['skill'] >= 1)
-		{
-			$skill = "skill" . $review['skill'];
-			$skill_value = $review['value'];
-			$reviewid = $review['id'];
-			$sql = "UPDATE reviews 
-					SET $skill = '$skill_value'
-					WHERE id = '$reviewid'";
-			$result = $this->db1->query($sql);
-			return TRUE;
-		}
-		else if(array_key_exists('message', $review) && $review['message'])
-		{
-			$message = $review['message'];
-			$reviewid = $review['id'];
-			$sql = "UPDATE reviews 
-					SET message = '$message'
-					WHERE id = '$reviewid";
-			$result = $this->db1->query($sql);
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
+		$skill = "skill" . $review['skill'];
+		$skill_value = $review['value'];
+		$reviewid = $review['id'];
+		$sql = "UPDATE reviews 
+				SET $skill = '$skill_value'
+				WHERE id = '$reviewid'";
+		$result = $this->db1->query($sql);
+		return TRUE;
+	}
+
+	public function comment($comment)
+	{
+		$message = $comment['message'];
+		$reviewid = $comment['id'];
+		$sql = "UPDATE reviews
+				SET message = '$message'
+				WHERE id = '$reviewid'";
+		$result = $this->db1->query($sql);
+		return TRUE;
 	}
 
 	public function recent($gameids)
@@ -72,8 +66,8 @@ class Review_model extends CI_Model
 
 	public function get($toid)
 	{
-		$sql = "SELECT * FROM reviews r
-				WHERE r.toid = '$toid'";
+		$sql = "SELECT * FROM reviews 
+				WHERE toid = '$toid'";
 		$result = $this->db1->query($sql);
 		return $result->result_array();
 	}

@@ -6,6 +6,7 @@ class Review extends MY_Controller
 	{
 		parent::__construct();
 		$this->load->model('review_model');
+		$this->load->library('recent_games');
 	}
 
 	public function create()
@@ -24,12 +25,14 @@ class Review extends MY_Controller
 		{
 			return FALSE;
 		}
+		$review['from_name'] = $_SESSION['user']['name'];
 		$this->review_model->create($review);
 	}
 
 	public function update()
 	{
 		$review = $_POST;
+
 		if(!array_key_exists('skill', $review) 
 			|| !array_key_exists('id', $review) 
 			|| !array_key_exists('value', $review)
@@ -41,5 +44,16 @@ class Review extends MY_Controller
 			return FALSE;
 		}
 		$this->review_model->update($review);
+	}
+
+	public function comment()
+	{
+		$comment = $_POST;
+		
+		if(!array_key_exists('message', $comment)  || !array_key_exists('id', $comment))
+		{
+			return FALSE;
+		}
+		$this->review_model->comment($comment);
 	}
 }

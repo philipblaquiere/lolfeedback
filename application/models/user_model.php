@@ -31,7 +31,7 @@ class User_Model extends CI_Model
   public function create($user)
   {
     $sql = "INSERT INTO users (id, name, email, password)
-            VALUES ('" . $user['id'] . "', '" . $user['name'] . "', '" . $user['email'] . "', '" . $user['password'] . "')";
+            VALUES ('" . $user['id'] . "', '" . $user['name'] . "', '" . strtolower($user['email']) . "', '" . $user['password'] . "')";
     
     $this->db1->query($sql);
   }

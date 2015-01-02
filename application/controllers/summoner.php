@@ -48,7 +48,7 @@ class Summoner extends MY_Controller
 				$data['title'] = $summoner_name[$id];
 			}
 			
-			$reviews = $this->review_model->get($id);
+			$data['reviews'] = $this->review_model->get($id);
 			if($data['games'] != NULL)
 			{
 				$current_reviews = $this->review_model->recent($gameids);
