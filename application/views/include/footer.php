@@ -1,6 +1,5 @@
 			<!-- Content-->
-  			</div><!-- Container -->
-  		</div><!-- Wrap -->
+  		</div><!-- Container -->
   		<div class="footer">
 		    <div class="copyright">Copyright &copy; <?php echo strftime('%Y'); ?></div>
 		</div>

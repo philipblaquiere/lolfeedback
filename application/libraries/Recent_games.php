@@ -97,7 +97,7 @@ class Recent_games
         array_push($playerids, $id);
         for ($i=0; $i < self::NUM_GAMES_RETURN; $i++)
         {
-            if(array_key_exists($i, $games[self::LOL_GAMES]))
+            if($games != null && array_key_exists($i, $games[self::LOL_GAMES]))
             {
                 $game = $games[self::LOL_GAMES][$i];
                 foreach ($game[self::LOL_PLAYERS] as $player)

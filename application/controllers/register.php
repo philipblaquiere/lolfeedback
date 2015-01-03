@@ -15,7 +15,8 @@ class Register extends MY_Controller
   public function index()
   {
     //Validation on input (requires that all fields exist)
-    $this->view_wrapper('register');
+    $data['page'] = "register";
+    $this->view_wrapper('register', $data);
   }
 
   public function password_match($pw1)
@@ -71,7 +72,8 @@ class Register extends MY_Controller
       $user['name'] = $_SESSION['player']['name'];
       $this->user_model->create($user);
       $this->system_message_model->set_message($user['name'] . ', you have successfully linked your League of Legends account! You can now post comments.', MESSAGE_INFO);
-      $this->view_wrapper('home');
+      $data['page'] = "home";
+      $this->view_wrapper('home', $data);
     }  
   }
 }

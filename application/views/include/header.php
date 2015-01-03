@@ -28,7 +28,6 @@
   <!--<link href="<?php echo base_url('assets/css/fbscript.css') ?>" rel="stylesheet" />-->
 </head>
 
-<body>
-  <div id="wrap">
-  <!-- Content -->
+<body <?php if($page == "summoner") { ?>id="<?php echo $summonerid ?>" <?php } ?> class="<?php echo $page ?>">
+  <!--   -->
   

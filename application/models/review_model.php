@@ -11,9 +11,9 @@ class Review_model extends CI_Model
 	public function create($review)
 	{
 		$sql = "INSERT INTO reviews (id, fromid, from_name, toid, gameid)
-		VALUES ('" . $review['id'] . "','" . $review['fromid'] . "','" . $review['from_name'] . "','" . $review['toid'] . "','" . $review['gameid'] . "')";
+		VALUES (?,?,?,?,?)";
 
-		$this->db1->query($sql);
+		$this->db1->query($sql, array($review['id'], $review['fromid'], $review['from_name'], $review['toid'], $review['gameid']));
 	}
 
 	public function update($review)
@@ -22,9 +22,9 @@ class Review_model extends CI_Model
 		$skill_value = $review['value'];
 		$reviewid = $review['id'];
 		$sql = "UPDATE reviews 
-				SET $skill = '$skill_value'
-				WHERE id = '$reviewid'";
-		$result = $this->db1->query($sql);
+				SET $skill = ?
+				WHERE id = ?";
+		$result = $this->db1->query($sql, array($skill_value, $reviewid));
 		return TRUE;
 	}
 
@@ -33,9 +33,9 @@ class Review_model extends CI_Model
 		$message = $comment['message'];
 		$reviewid = $comment['id'];
 		$sql = "UPDATE reviews
-				SET message = '$message'
-				WHERE id = '$reviewid'";
-		$result = $this->db1->query($sql);
+				SET message = ?
+				WHERE id = ?";
+		$result = $this->db1->query($sql, array($message, $reviewid));
 		return TRUE;
 	}
 
@@ -66,14 +66,14 @@ class Review_model extends CI_Model
 
 	public function get($toid)
 	{
-		$sql = "SELECT * FROM reviews 
-
+		$sql = "SELECT * FROM reviews
 				WHERE toid = '$toid'
 				AND (message IS NOT NULL
 				OR skill1 != 0
 				OR skill2 != 0
 				OR skill3 != 0
-				OR skill4 != 0)";
+				OR skill4 != 0)
+				ORDER BY created DESC";
 		$result = $this->db1->query($sql);
 		return $result->result_array();
 	}

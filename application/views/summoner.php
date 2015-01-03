@@ -43,7 +43,7 @@
   <div class="col-md-4 col-md-offset-4"><span class="open_sans"></span></div>
 </div>
 <?php } else { ?>
-<div class="summoner-games">
+<div id="sg_<?php echo $id ?>" class="summoner-games">
   <div class="row">
     <div class="col-md-7">
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -124,42 +124,8 @@
 </div>
 <?php } ?>
 
-<div class="summoner-reviews">
-  <div class="row">
-    <div class="reviews-title">
-      <p></p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-7">
-    <div class="reviews-content">
-      <?php if(empty($reviews)) { ?>
-        <p>No reviews left for <?php echo $title ?></p>
-        <?php } else { foreach ($reviews as $review) { ?>
-            <div class="review-header">
-              <p>
-                <a href="<?php echo site_url('summoner')."/".$review['fromid'] ?>"><?php echo $review['from_name'] ?></a>:
-                <?php if($review['skill1'] != 0) { ?>.
-                  Game-sense-<?php echo $review['skill1'] ?>
-                <?php } if($review['skill2'] != 0) { ?>
-                  Helpful-<?php echo $review['skill2'] ?>
-                <?php } if($review['skill3'] != 0) { ?>
-                  Skillful-<?php echo $review['skill4'] ?>
-                <?php } if($review['skill4'] != 0) { ?>
-                  Delivery-<?php echo $review['skill4'] ?>
-                <?php } ?>
-                <?php echo $review['created'] ?>
-              </p>
-            </div>
-            <div class="review-body">
-              <?php if($review['message'] != NULL) { ?>
-              <p><?php echo $review['message']?></p>
-              <?php } ?>
-            </div>
-        <?php } } ?>
-      </div>
-    </div>
-  </div>
+<div id="sr_<?php echo $id ?>" class="summoner-reviews">
+
 </div>
 
 

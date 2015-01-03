@@ -104,17 +104,6 @@ $(".region-list li a").click(function(event) {
     $(this).parents('.input-group-btn').find('.dropdown-toggle').html(selText + '  <span class="caret"></span> ');
 });
 
-function reloadLoLRegister(message) {
-    alert("in reload");
-    $.ajax({
-        url: '/LoLRep/add_esport/register_LoL',
-        type: "post",
-        data: {},
-        success: function(data){
-            $("#authenticate_runepage_page").html(message);
-        }
-    });
-}
 
 function switchButtonToRegister()
 {
@@ -305,5 +294,27 @@ $(document).on('change', ".skill-radio", function() {
             return;
         }
     });
+});
+
+$(document).ready(function() {
+    if($('body').is('.summoner')){
+
+        var summonerId = document.getElementsByTagName("body")[0].id
+        $("#sr_"+summonerId).html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
+
+        $.ajax({
+        url: "/perfect/index.php/review/get/"+summonerId,
+        type: 'POST',
+        data: {},
+        success: function(data){
+            $("#sr_"+summonerId).html();
+            $("#sr_"+summonerId).html(data);
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            $("#"+buttonId).html('An error has occured creating the review:' + textStatus +errorThrown);
+            return;
+        }
+    });
+  }
 });
 

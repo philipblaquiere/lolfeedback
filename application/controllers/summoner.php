@@ -46,6 +46,7 @@ class Summoner extends MY_Controller
 			else
 			{
 				$data['title'] = $summoner_name[$id];
+				$data['id'] = $id;
 			}
 			
 			$data['reviews'] = $this->review_model->get($id);
@@ -60,6 +61,8 @@ class Summoner extends MY_Controller
 			$data['stats'] = array_slice($stats, 0, 4);
 			$data['review_stats'] = array_slice($stats, 4, 2);
 			$data['sub_title'] = "Look below for game reviews";
+			$data['summonerid'] = $id;
+			$data['page'] = "summoner";
 		}
 		$this->view_wrapper('summoner', $data);
 	}

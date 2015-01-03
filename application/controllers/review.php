@@ -56,4 +56,10 @@ class Review extends MY_Controller
 		}
 		$this->review_model->comment($comment);
 	}
+
+	public function get($id)
+	{
+		$data['reviews'] = $this->review_model->get($id);
+		$this->load->view('comments', $data);
+	}
 }
