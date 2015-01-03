@@ -180,7 +180,7 @@
 
 }
 .skill-list{
-  max-width: 220px;
+  max-width: 250px;
   margin-left:-25px;
   padding-bottom: 3px;
 }
@@ -212,8 +212,13 @@
   padding-top: 20px;
 }
 .review-message{
-  max-width: 220px;
-  
+  width: 200px;
+  resize:none;
+  margin-left: -15px;
+  margin-top: -5px;
+}
+.review-message-button{
+  margin-top: 5px;
 }
 .reviews-content{
   box-shadow: 0px 0px 1px #949494; 
@@ -241,13 +246,33 @@ ul
   padding-right: 15px;
   max-width: 400px;
 }
-
+.homepage-skill-name{
+  font-size: 3em;
+  font-family: 'Open Sans', sans-serif;
+}
 .summoner-games{
 }
 .top-buffer { margin-top:20px; }
 
 .summoner-reviews{
 
+}
+
+.star-rating{
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  font-size: 30px;
+
+}
+
+.star{
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+}
+.homepage-skill{
+  text-align: center;
 }
 .color-pallette{
   #0ba89c teal

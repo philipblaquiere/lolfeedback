@@ -59,7 +59,7 @@ class Sign_in extends MY_Controller
         $this->user_model->log_login($user['id']);
         $this->set_user($user);
         $this->system_message_model->set_message('Welcome, ' . $user['name'], MESSAGE_INFO);
-        redirect('summoner', 'location');
+        redirect('summoner/'.$user['id'], 'location');
       }
       else
       {

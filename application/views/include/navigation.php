@@ -16,12 +16,13 @@
         <ul class="nav navbar-nav navbar-right">
           <?php if ($is_logged_in): ?>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['user']['name']; ?><b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="<?php echo site_url('summoner') . "/" . $_SESSION['user']['id']?>" >Profile</a></li>
-                   <li role="presentation" class="divider"></li>
-                  <li><a href="<?php echo site_url('sign_in/sign_out'); ?>">Sign out</a></li>
-                </ul>
+              <a class="btn btn-link" href="<?php echo site_url('summoner') . "/" . $_SESSION['user']['id']?>"><?php echo $_SESSION['user']['name']; ?></a>
+            </li>
+            <li>   
+              <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#"><span class="fa fa-caret-down"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="<?php echo site_url('sign_in/sign_out'); ?>">Sign out</a></li>
+              </ul>
             </li>
           <?php else: ?>
           <li><a href="<?php echo site_url('register'); ?>">Register</a></li>

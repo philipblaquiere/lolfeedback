@@ -192,7 +192,7 @@ $(".review").click(function(event) {
                 unorderedList.appendChild(skillList)
             }
             reviewArea.appendChild(unorderedList)
-            var formElement = document.createElement('form')
+            var formElement = document.createElement('ul')
             var messageElement = document.createElement('textarea')
             messageElement.setAttribute('placeholder', 'Leave a comment')
             messageElement.setAttribute('rows', '3')
@@ -201,7 +201,7 @@ $(".review").click(function(event) {
             var messageButtonElement = document.createElement('button')
             messageButtonElement.setAttribute('value', '1')
             messageButtonElement.setAttribute('id', buttonId+"-message-button")
-            messageButtonElement.setAttribute('class', 'btn btn-default review-message-button')
+            messageButtonElement.setAttribute('class', 'btn btn-default review-message-button pull-right')
             messageButtonElement.insertAdjacentHTML('afterBegin','Post')
             messageButtonElement.setAttribute('type', 'button')
             formElement.appendChild(messageElement)
