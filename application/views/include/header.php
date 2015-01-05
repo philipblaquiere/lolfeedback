@@ -8,7 +8,7 @@
   <meta name="author" content="">
   <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-  <title>Perfect</title>
+  <title>LoL Feedback</title>
 
   <!-- Bootstrap core CSS -->
   <!--  <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -18,7 +18,7 @@
 
   <link href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet" />
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Hammersmith+One|Open+Sans:700italic,400' rel='stylesheet' type='text/css'>
   <link href="<?php echo base_url('assets/css/marketing.css') ?>" rel="stylesheet" />
   <link href="<?php echo base_url('assets/css/navbar.css') ?>" rel="stylesheet" />
   <link href="<?php echo base_url('assets/css/datepicker.css') ?>" rel="stylesheet" />

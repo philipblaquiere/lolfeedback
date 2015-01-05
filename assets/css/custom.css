@@ -2,7 +2,7 @@
  * All your custom CSS
  */
  body {
-  padding-top: 50px;
+  padding-top: 41px;
 
  }
 #wrap {
@@ -12,7 +12,7 @@
 
 }
 #system-messages {
-  background-color: #fff;
+  background-color: #fffebb;
 }
 #system-messages ul {
   padding: 0px;
@@ -23,31 +23,16 @@
   padding: 0.5em;
 }
 #system-messages .error {
-  border: 1px solid #ff0000;
-  background: rgba(255,0,0,0.3);
+  border: 1px solid #a8d26c;
+  background: #fffebb;
 }
 #system-messages .warning {
-  border: 1px solid #ffff00;
-  background: rgba(255,255,0,0.4);
+  border: 1px solid #a8d26c;
+  background: #fffebb;
 }
 #system-messages .notice {
-  border: 1px solid #00ff00;
-  background: rgba(0,255,0,0.2);
-}
-
-#splash_image{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 10px;
-}
-
-#splash_message{
-  text-align: center;
-}
-
-.search .glyphicon {
-  top: 0px;
+  border: 1px solid #a8d26c;
+  background: #fffebb;
 }
 
 .footer {
@@ -64,39 +49,11 @@
   width: 320px;
 }
 
-.profile-header {
-  height: 221px;
-  width:100%;
-  background-color: #2c2c2c;  
-}
-
-.banner-title-big {
-  /* For Safari 3.1 to 6.0 */
-    -webkit-transition-property: padding;
-    -webkit-transition-duration: 0.23s;
-    -webkit-transition-timing-function: exponential;
-    -webkit-transition-delay: 0s;
-    /* Standard syntax */
-    transition-property: padding;
-    transition-duration: 0.23s;
-    transition-timing-function: exponential;
-    transition-delay: 0s;
-  display: inline-block;
-  padding: 33px 0px 0px 0px;
-  font-size: 200px;
-  overflow: hidden;
-  color: #cbcbcd;
-  height: 220px;
-}
 
 .banner-title-big:hover {
   padding: 0px 0px 0px 0px ;
 }
 
-
-.lol-match-player-name {
-
-}
 .lol-match-icon {
   height: 24px;
   width: 24px;
@@ -104,20 +61,7 @@
   box-shadow: 0px 0px 1px #949494;  
   margin-top: 3px;
 }
-.lol-match {
-  padding: 20px 0px 0px 0px;
-}
-.lol-match-player-level {
-  font-size: 10px;
-  display: inline-block;
-}
 
-.lol-match-item-group {
-  vertical-align: middle;
-}
-
-.main_content{
-}
 
 .open_sans{
   font-family: 'Open Sans', sans-serif;
@@ -130,44 +74,11 @@
   position: absolute;
 }
 
-.player-links {
-  padding: 10px 0px 0px 0px;
-}
-
-.circle-medium {
-  width: 50px;
-  height: 50px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  border-radius: 25px; 
-  position: absolute;
-}
-.league_description {
-  max-height:100px;
-}
-
-.season-stats{
-  position: relative;
-  min-height: 150px;
-  overflow: hidden;
-  width: 100%;
-  padding: 10px 0 0 0;
-}
-.season-stats .stat-list{
-  float: left;
-  width: 100%;
-}
-.season-stats .stat-list li{
-  display: inline-block;
-  text-align: center;
-  position: relative;
-  padding: 20px 5px 15px 5px;
-}
-
 .stat-label{
   font-family: 'Open Sans', sans-serif;
   font-size: 0.95em;
   bottom: 3px;
+  color: #2a400a;
   text-transform: uppercase;
 }
 
@@ -175,6 +86,7 @@
   text-transform: uppercase;
   font-family: 'Open Sans', sans-serif;
   font-size: 50px; 
+  color: #2a400a;
   margin-top: -5px;
   padding-bottom: 5px;
 
@@ -190,9 +102,14 @@
 }
 .skill-label{
   padding-right: 10px;
+  color: #2a400a;
 }
 .summoner-title{
   font-family: 'Open Sans', sans-serif;
+  color: #2a400a;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-size: 4.1em;
 }
 .summoner-icon{
   width: 34px;
@@ -212,10 +129,11 @@
   padding-top: 20px;
 }
 .review-message{
-  width: 200px;
+  width: 190px;
+  height: 100px;
   resize:none;
   margin-left: -15px;
-  margin-top: -5px;
+  margin-top: 3px;
 }
 .review-message-button{
   margin-top: 5px;
@@ -242,27 +160,47 @@ ul
 .site-header{
   margin-left: 15px;
 }
+.brand{
+  font-family: 'Hammersmith One', sans-serif;
+  font-weight: 700;
+  color: #2a400a;
+}
 .search{
   padding-right: 15px;
   max-width: 400px;
 }
-.homepage-skill-name{
-  font-size: 3em;
-  font-family: 'Open Sans', sans-serif;
-}
-.summoner-games{
-}
+
 .top-buffer { margin-top:20px; }
-
-.summoner-reviews{
-
-}
 
 .star-rating{
   unicode-bidi: bidi-override;
   direction: rtl;
   font-size: 30px;
 
+}
+.darks{
+  background-color:#a8d26c;
+
+}
+.clip {
+    overflow: hidden;
+    display: inline-flex;
+    margin-right: -28px;
+    margin-left: 2px;
+}
+.navclip {
+    overflow: hidden;
+    display: inline-flex;
+    margin-left: 1px;
+    margin-right: -5px;
+}
+.half {
+   position: relative;
+    left: -50%;
+}
+.custom-alert{
+  background-color: #fffebb;
+  color: #2a400a;
 }
 
 .star{
@@ -271,8 +209,99 @@ ul
   font-style: normal;
   display: inline-block;
 }
+.system-message{
+  background-color: #a8d26c;
+}
+.homepage{
+  margin-top: -9px;
+}
+
+.homepage-header{
+  background: #a8d26c;
+  border-bottom: 1px;
+  border-color: #819c32;
+  border-bottom-style: solid;
+
+}
+.homepage-title{
+  padding-top: 66px;
+  font-size: 4.4em;
+  color: #2a400a;
+}
+.homepage-subtitle{
+  color:#fffebb;
+  margin-top: -15px;
+  font-size: 2.1em;
+  padding-bottom: 30px;
+}
+.homepage-quote{
+   padding-top: 35px;
+  padding-bottom: 30px;
+}
+.homepage-quote-content{
+  font-size: 1.8em;
+  font-style: italic;
+  color: #2a400a;
+}
+
+.homepage-quote-author{
+  font-size: 1.1em;
+  font-style: italic;
+  color: #444;
+}
+
+.homepage-pitch-main-title{
+  font-size: 6em;
+  color: #2a400a;
+  text-align: center;
+  position: relative;
+  padding-top: 0.9em;
+}
+.homepage-pitch-title{
+  padding-top: 0.8em;
+  font-size: 3em;
+  font-family: 'Open Sans', sans-serif;
+  color: #2a400a;
+}
+.homepage-pitch-main-content{
+  font-size: 1.4em;
+  text-align: left;
+  padding-bottom:20px;
+  padding-top:25px;
+}
+.homepage-pitch-content{
+  padding-bottom:20px;
+  padding-top:5px;
+  font-size: 1.4em;
+}
+.homepage-skills{
+  padding: 20px; 
+}
 .homepage-skill{
   text-align: center;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  background-color: #FFF;
+  margin-bottom:20px;
+  padding: 20px;
+}
+.homepage-skill-name{
+  padding-bottom: 14px;
+  font-size: 2em;
+  font-family: 'Open Sans', sans-serif;
+  color:#819c32;
+}
+.homepage-skill-icon{
+  font-size: 7.5em;
+  padding-bottom: 14px;
+  color: #2a400a;
+}
+.homepage-skill-description{
+  font-size: 1.1em;
+  padding-bottom: 10px;
+}
+.registration-errors{
+  vertical-align: middle;
 }
 .color-pallette{
   #0ba89c teal
@@ -282,4 +311,9 @@ ul
   #949494 grey
   #cbcbcd light grey
   #060708 black
+
+  #a8d26c avocado green
+  #819c32 avocado green slight dark
+  #fffebb avocado yellow
+  #2a400a  dark green
 }

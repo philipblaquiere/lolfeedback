@@ -10,16 +10,17 @@ class Ajax extends MY_Controller
 		$this->load->library('lol_api');
 	}
 
-	public function authenticate_summoner($region, $summonerinput)
+	public function authenticate_summoner()
 	{
-		$region = urldecode($region);
-      	$region = 'na';
+		$region = $_POST['region'];
+		$summonerinput = $_POST['summonername'];
+		$region = 'na';
 	    if($summonerinput== "-")
 	    {
 	       //user didn't enter anything, show error message and reload.
 		    $data['errormessage'] = "You must enter a summoner name to validate.";
-			  $this->load->view('messages/rune_page_verification_fail', $data);
-			  return;
+			$this->load->view('messages/rune_page_verification_fail', $data);
+			return;
 	    }
 	    else if($region == "Region")
 	    {
@@ -94,5 +95,53 @@ class Ajax extends MY_Controller
 			$data['errormessage'] = "Incorrect Rune page name (" . $firstRunePageName . "), should be " . $runepagekey;
 			$this->load->view('messages/rune_page_verification_fail', $data);
 		}
+	}
+
+	public function validate_register()
+	{
+		$email = $_POST['email'];
+		$summoner_name = $_POST['summonername'];
+		$original_summoner = $_POST['summonername'];
+		$region = $_POST['region'];
+
+		$user = $this->user_model->get($email);
+		$data = array();
+		if(!empty($user))
+		{
+			//$this->form_validation->set_message('unique_email', 'That email is already registered with our website, choose another one.');
+			$data['content'] = $email . " is already in use";
+			$data['error'] = "true";
+			echo json_encode($data);
+			return;
+		}
+		$summoner_name = strtolower(str_replace(' ','', urldecode($summoner_name)));
+  		$riotsummoners = $this->lol_api->getSummonerByName($summoner_name);
+  		if(empty($riotsummoners) || !array_key_exists($summoner_name, $riotsummoners))
+		{
+			$data['content'] = "\"" . $original_summoner . "\" wasn't found";
+			$data['error'] = "true";
+			echo json_encode($data);
+			return;
+		}
+
+		$player = $this->user_model->get_byid($riotsummoners[$summoner_name]['id']);
+
+		if($player)
+		{
+			$data['content'] = $original_summoner . " is already registered";
+			$data['error'] = "true";
+			echo json_encode($data);
+			return;
+		}
+		$_SESSION['runepagekey'] = $this->user_model->generate_rune_page_key();
+		$data['runepagekey'] = $_SESSION['runepagekey'];
+		$_SESSION['player']['name'] = $riotsummoners[$summoner_name]['name'];
+		$_SESSION['player']['id'] = $riotsummoners[$summoner_name]['id'];
+
+		$data['error'] = "false";
+		$data['content'] = $this->load->view('ajax/authenticate_summoner',$data, true);
+		//$data['content'] = "Test";
+		echo json_encode($data);
+		return;
 	}
 }	

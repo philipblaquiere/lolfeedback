@@ -25,7 +25,12 @@ class Register extends MY_Controller
 
     if($pw2 != $pw1)
     {
-      $this->form_validation->set_message('password_match', 'The passwords do not match.');
+      $this->form_validation->set_message('password_match', 'The passwords did not match.');
+      return FALSE;
+    }
+    else if(strlen($pw1) < 6)
+    {
+      $this->form_validation->set_message('password_match', 'Both passwords contain more than 6 characters');
       return FALSE;
     }
     else
@@ -34,13 +39,28 @@ class Register extends MY_Controller
     }
   }
 
-  public function unique_email($email)
+  public function unique_email_ajax($email)
   {
-    $email = strtolower($email);
+    $email = trim(strtolower($email));
     $user = $this->user_model->get($email);
     if($user)
     {
-      $this->form_validation->set_message('unique_email', 'That email is already registered with our website, choose another one.');
+      //$this->form_validation->set_message('unique_email', 'That email is already registered with our website, choose another one.');
+      echo FALSE;
+    }
+    else
+    {
+      echo TRUE;
+    }
+  }
+
+  public function unique_email($email)
+  {
+    $email = trim(strtolower($email));
+    $user = $this->user_model->get($email);
+    if($user)
+    {
+      $this->form_validation->set_message('unique_email', $email . ' is already registered with our website, choose another one.');
       return FALSE;
     }
     else
@@ -60,7 +80,8 @@ class Register extends MY_Controller
 
     if($this->form_validation->run() == FALSE)
     {
-      $this->view_wrapper('register');
+      $data['page'] = "register";
+      redirect('register', $data);
     } 
     else
     {
@@ -73,7 +94,7 @@ class Register extends MY_Controller
       $this->user_model->create($user);
       $this->system_message_model->set_message($user['name'] . ', you have successfully linked your League of Legends account! You can now post comments.', MESSAGE_INFO);
       $data['page'] = "home";
-      $this->view_wrapper('home', $data);
+      redirect('home', $data);
     }  
   }
 }

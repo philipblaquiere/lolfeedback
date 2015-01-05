@@ -6,6 +6,7 @@ $(document).on('submit','#initial-registration',function(event)
     /* Clear rune page div*/
     $("#authenticate_runepage_page").html('');
     $("#summoner_validation_error").html('');
+    $("#authenticate_runepage_page").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
 
 
     var email = document.getElementById("email").value;
@@ -13,6 +14,7 @@ $(document).on('submit','#initial-registration',function(event)
     if(!regex.test(email))
     {
         $("#summoner_validation_error").html('Email must be a valid format '+ email );
+        $("#authenticate_runepage_page").html('');
         return;
     }
 
@@ -21,45 +23,57 @@ $(document).on('submit','#initial-registration',function(event)
 
     if(pass1 == "" || pass2 == "" || pass1 != pass2)
     {
-        $("#summoner_validation_error").html('Passwords must match and can\'t be empty');
+        $("#summoner_validation_error").html('Passwords can\'t be empty');
+        $("#authenticate_runepage_page").html('');
+        return;
+    }
+    if(pass1 != pass2)
+    {
+        $("#summoner_validation_error").html('Passwords must match');
+        $("#authenticate_runepage_page").html('');
+        return;
+    }
+    if(pass1.length < 6)
+    {
+        $("#summoner_validation_error").html('Password must be longer than 6 characters');
+        $("#authenticate_runepage_page").html('');
         return;
     }
 
     /* Get some values from elements on the page: */
-    var summonername = document.getElementById("summonername").value;
-    if(summonername == "")
-    {
-        summonername = "-";
+    var summonername = document.getElementById("summonername").value
+    var region = document.getElementById("region").innerText.toLowerCase().trim()
+
+    var registerInfo = {
+        email: email,
+        summonername: summonername,
+        region:  region
     }
 
      /* Check db if email is already used*/
     $.ajax({
-        url: 'register/unique_email/'+ email.toLowerCase(),
+        url: '/perfect/index.php/ajax/validate_register',
         type: "post",
-        data: {},
+        data: registerInfo,
+        dataType: 'JSON',
         success: function(data){
-            var region = document.getElementById("region").firstChild.data;
-            $("#authenticate_runepage_page").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
+            if(data.error == "true")
+            {
+                $("#summoner_validation_error").html('');
+                $("#summoner_validation_error").html(data.content);
+                $("#authenticate_runepage_page").html('');
+                return;
+            }
 
-            /* Send the data using post and put the results in a div */
-            $.ajax({
-                url: 'ajax/authenticate_summoner/'+ region +'/'+ summonername.trim(),
-                type: "post",
-                data: summonername,
-                success: function(data){
-                    $("#authenticate_runepage_page").html(data);
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    $("#authenticate_runepage_page").html(summonername + " error " + textStatus + " " + errorThrown );
-                }
-            });
+            $("#summoner_validation_error").html('');
+            $("#authenticate_runepage_page").html('');
+            $("#authenticate_runepage_page").html(data.content);
+            return;
         },
         error:function(data,jqXHR, textStatus, errorThrown){
-            $("#summoner_validation_error").html("Email is already in use" + data);
+           $("#summoner_validation_error").html('There was an error while registering. Please try again.');
         }
     });
-    
-    
 });
     
 $(document).on('submit','#rune_page_verification',function(event) {
@@ -68,18 +82,21 @@ $(document).on('submit','#rune_page_verification',function(event) {
 
     /* Clear any previous error message*/
     $("#rune_page_verification_result").html('');
+    $("#rune_page_verification_result").html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
 
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: 'ajax/rune_page_verification',
+        url: '/perfect/index.php/ajax/rune_page_verification',
         type: "get",
         data: {},
         success: function(data){
             if(data == "success") {
                 //verification succeeded, create user
+                $("#rune_page_verification_result").html('');
                 switchButtonToRegister();
             }
             else {
+                $("#rune_page_verification_result").html('');
                 $("#rune_page_verification_result").html(data);
             }
         },
@@ -130,7 +147,7 @@ $(".review").click(function(event) {
     var revieweeid = ids[1]
     var gameid = ids[2]
     var skillNames = ['','Game Sense','Helpful','Skillful','Delivery']
-    var skillDescriptions = ['', 'Deep understanding of team oriented goals, team player, a leader', 'Cooperated, jumped on opportunities to educate','Demonstrated intellectual prowness through gameplay', 'Polite, clear and concise when communicating']
+    var skillDescriptions = ['', 'Deep understanding of team oriented goals, team player, a leader', 'Cooperated, jumped on opportunities to educate','Demonstrated intellectual prowess through gameplay', 'Polite, clear and concise when communicating']
 
     if(ids.length != 3)
     {
@@ -151,6 +168,7 @@ $(".review").click(function(event) {
         success: function(data){
             $("#"+buttonId).html('');
             var unorderedList = document.createElement('ul')
+            unorderedList.setAttribute('class', 'pull-left text-left')
             var skillList = document.createElement('div')
             skillList.setAttribute('class','skill-list')
 
@@ -202,10 +220,13 @@ $(".review").click(function(event) {
             messageButtonElement.setAttribute('value', '1')
             messageButtonElement.setAttribute('id', buttonId+"-message-button")
             messageButtonElement.setAttribute('class', 'btn btn-default review-message-button pull-right')
-            messageButtonElement.insertAdjacentHTML('afterBegin','Post')
+            messageButtonElement.insertAdjacentHTML('afterBegin','Send')
             messageButtonElement.setAttribute('type', 'button')
+            var messageStatusElement = document.createElement('div')
+            messageStatusElement.setAttribute('id', buttonId+"-review-message-status")
             formElement.appendChild(messageElement)
             formElement.appendChild(messageButtonElement)
+            formElement.appendChild(messageStatusElement)
             messageArea.appendChild(formElement)
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -245,13 +266,12 @@ $(document).on('click', ".review-message-button", function() {
         url: "/perfect/index.php/review/comment",
         type: 'POST',
         data: review,
+        dataType: 'JSON',
         success: function(data){
-            $("#"+reviewid+"-message").children().fadeOut(220, function() {
-                $("#"+reviewid+"-message").html('Comment Submitted')
-            });
+            $("#"+reviewid+"-review-message-status").html(data.msg)
         },
-        error:function(jqXHR, textStatus, errorThrown){
-            $("#"+buttonId).html('An error has occured creating the review:' + textStatus+errorThrown);
+        error:function(data, jqXHR, textStatus, errorThrown){
+            $("#"+reviewid+"-review-message-status").html('An error has occured creating the review');
             return;
         }
     });
@@ -300,6 +320,10 @@ $(document).ready(function() {
     if($('body').is('.summoner')){
 
         var summonerId = document.getElementsByTagName("body")[0].id
+        if(summonerId == "index")
+        {
+            return;
+        }
         $("#sr_"+summonerId).html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
 
         $.ajax({

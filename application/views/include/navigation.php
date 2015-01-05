@@ -1,8 +1,8 @@
   <!-- Static navbar -->
-  <nav class="navbar navbar-fixed-top" role="navigation">
-    <div class="container">
-      <div class="navbar-header pull-right ">
-        <a class="navbar-brand site-header" href="<?php echo site_url('home'); ?>">Perfect</a>
+  <nav class="navbar navbar-fixed-top darks" role="navigation">
+    <div class="container ">
+      <div class="navbar-header">
+        <a class="navbar-brand site-header brand" href="<?php echo site_url('home'); ?>">LoL Fe<span class="navclip"><span class="half"><i class="fa fa-volume-up"></i></span></span>dback</a>
       </div>
       <?php echo form_open('search', array('class' => 'navbar-form navbar-right', 'id' => 'search_summoner', 'role' => 'search')); ?>
         <div class="input-group search">
@@ -54,3 +54,5 @@
     </div>
   </nav>
   <!-- Static nav -->
+  <div class="wrapper">
+  <!-- Wrapper -->

@@ -11,7 +11,7 @@
         <?php } else { foreach ($reviews as $review) { ?>
             <div class="review-header">
               <p>
-                <a href="<?php echo site_url('summoner')."/".$review['fromid'] ?>"><?php echo $review['from_name'] ?></a>:
+                <a href="<?php echo site_url('summoner')."/".$review['fromid'] ?>"><?php echo $review['from_name'] ?></a>'s feedback:
                 <?php if($review['skill1'] != 0) { ?>
                 Game-sense-<?php echo $review['skill1'] ?>
                 <?php } if($review['skill2'] != 0) { ?>

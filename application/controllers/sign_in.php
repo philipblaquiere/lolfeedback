@@ -9,7 +9,6 @@ class Sign_in extends MY_Controller
 	public function __construct()
   {
     parent::__construct();
-    $this->CI =& get_instance();
     $this->load->model('user_model');
     $this->load->model('system_message_model');
   }
@@ -58,7 +57,6 @@ class Sign_in extends MY_Controller
       {
         $this->user_model->log_login($user['id']);
         $this->set_user($user);
-        $this->system_message_model->set_message('Welcome, ' . $user['name'], MESSAGE_INFO);
         redirect('summoner/'.$user['id'], 'location');
       }
       else
@@ -73,8 +71,6 @@ class Sign_in extends MY_Controller
   {
     $this->require_login();
     $this->destroy_session();
-    $data = array('page_title' => 'Sign out successful');
-    $this->system_message_model->set_message('Sign out successful', MESSAGE_INFO);
     redirect('home', 'location');
   }
 
