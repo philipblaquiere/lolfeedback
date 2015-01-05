@@ -12,7 +12,7 @@
 					<p>"<?php echo $quote_content ?>"</p>
 				</div>
 				<div class="homepage-quote-author">
-					<p>&mdash; <?php echo $quote_author ?></p>
+					<p>&mdash;<?php echo $quote_author ?></p>
 				</div>
 			</div>
 		</div>
@@ -30,7 +30,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="homepage-pitch-main-content">
-						<p>LoL Feedback is platform allowing LoL players to give constructive Feedback to fellow players. Instead of remaining passive after a heated game, LoL Feedback aims at giving a chance to reach out to fellow LoL players and provide an informative insight on their performance. Whether that insight be positive or negative, every feedback given counts. </p>
+						<p>LoL Feedback is a platform allowing LoL players to give constructive Feedback to fellow players. Instead of remaining passive after a heated game, LoL Feedback aims at providing informative insight on players' performances by giving a means to reach out to fellow LoL players. Whether that insight be positive or negative, every feedback given counts. </p>
 					</div>
 				</div>
 			</div>
@@ -38,7 +38,7 @@
 				<p>What's "Feedback"?</p>
 			</div>
 			<div class="homepage-pitch-content">
-				<p>Feedback is continuously given in everyday life, whether you be at work or playing a sport. It helps shake you up a bit and realize what you did good, and not so good. A LoL Feedback consists of leaving a constructive, informative comment to a fellow player as well as rating them on the following four gameplay aspects: </p>
+				<p>Feedback is continuously given in everyday life, whether you be at work or playing a sport. It helps shake you up a bit and realize what you did good, or not so good. A LoL Feedback consists of a constructive comment and four individual ratings. to a fellow player as well as rating them on the following four gameplay aspects: </p>
 			</div>
 			<div class="homepage-skills">
 				<div class="row">
@@ -71,7 +71,7 @@
 					<div class="col-md-3">
 						<div class="homepage-skill">
 							<div class="homepage-skill-name">
-								<p>Skillfull</p>
+								<p>Skillful</p>
 							</div>
 							<div class="homepage-skill-icon">
 								<i class="fa fa-magic"></i>
