@@ -52,7 +52,7 @@ $(document).on('submit','#initial-registration',function(event)
 
      /* Check db if email is already used*/
     $.ajax({
-        url: '/perfect/index.php/ajax/validate_register',
+        url: '/lolfeedback/ajax/validate_register',
         type: "post",
         data: registerInfo,
         dataType: 'JSON',
@@ -86,7 +86,7 @@ $(document).on('submit','#rune_page_verification',function(event) {
 
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: '/perfect/index.php/ajax/rune_page_verification',
+        url: '/lolfeedback/ajax/rune_page_verification',
         type: "get",
         data: {},
         success: function(data){
@@ -162,7 +162,7 @@ $(".review").click(function(event) {
     }
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "/perfect/index.php/review/create",
+        url: "/lolfeedback/review/create",
         type: 'POST',
         data: review,
         success: function(data){
@@ -263,7 +263,7 @@ $(document).on('click', ".review-message-button", function() {
 
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "/perfect/index.php/review/comment",
+        url: "/lolfeedback/review/comment",
         type: 'POST',
         data: review,
         dataType: 'JSON',
@@ -304,7 +304,7 @@ $(document).on('change', ".skill-radio", function() {
 
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "/perfect/index.php/review/update",
+        url: "/lolfeedback/review/update",
         type: 'POST',
         data: review,
         success: function(data){
@@ -327,7 +327,7 @@ $(document).ready(function() {
         $("#sr_"+summonerId).html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
 
         $.ajax({
-        url: "/perfect/index.php/review/get/"+summonerId,
+        url: "/lolfeedback/review/get/"+summonerId,
         type: 'POST',
         data: {},
         success: function(data){
