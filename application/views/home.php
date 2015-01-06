@@ -38,7 +38,7 @@
 				<p>What's "Feedback"?</p>
 			</div>
 			<div class="homepage-pitch-content">
-				<p>Feedback is continuously given in everyday life, whether you be at work or playing a sport. It helps shake you up a bit and realize what you did good, or not so good. A LoL Feedback consists of a constructive comment and four individual ratings. to a fellow player as well as rating them on the following four gameplay aspects: </p>
+				<p>Feedback is continuously given in everyday life, whether you be at work or playing a sport. It helps shake you up a bit and realize what you did well, or not so well. A LoL Feedback consists of a constructive comment and four individual ratings o tnhe following four gameplay aspects: </p>
 			</div>
 			<div class="homepage-skills">
 				<div class="row">

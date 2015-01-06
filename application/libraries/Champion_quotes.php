@@ -42,8 +42,16 @@ class Champion_quotes
 		"Gangplank" => "Swab the poop deck!",
 		"Graves" => "Got any bright ideas?",
 		"Twisted Fate" => "Never lost a fair game... or played one.",
-		"Brand" => "I am the fire that cleanses the world."
-
+		"Brand" => "I am the fire that cleanses the world.",
+		"Gragas" => "Let's get this party started!",
+		"Skarner" => "I see the wisdom in that.",
+		"Sona" => "From my mind to yours.",
+		"Nidalee" => "I will guide you.",
+		"Maokai" => "I will end this misuse of magic.",
+		"Tristana" => "Ready for some fireworks?",
+		"Cassiopeia" => "Am I getting under your skin?",
+		"Aether Wing Kayle" => "Trust in my vision.",
+		"Ryze" => "You show promise!"
 	);
 
 	public function __construct()

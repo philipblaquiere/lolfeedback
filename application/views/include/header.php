@@ -15,7 +15,8 @@
   <link href="assets/css/marketing.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <!--<link href="assets/css/navbar.css" rel="stylesheet">-->
-
+  <link rel="shortcut icon" href="<?php echo base_url('assets/images') ?>/favicon.ico">
+  <link rel="apple-touch-icon" href="<?php echo base_url('assets/images') ?>/favicon.ico">
   <link href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet" />
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Hammersmith+One|Open+Sans:700italic,400' rel='stylesheet' type='text/css'>

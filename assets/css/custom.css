@@ -43,7 +43,9 @@
   border-top: 1px solid #ccc;
   text-align: center;
 }
-
+.space{
+  padding-top: 50px;
+}
 .user-autocomplete.form-inline .search-username {
   width: 200px;
 }
@@ -186,7 +188,9 @@ ul
 }
 .darks{
   background-color:#a8d26c;
-
+}
+.lights{
+  background-color: #FFF;
 }
 .clip {
     overflow: hidden;
@@ -227,11 +231,10 @@ ul
   border-bottom: 1px;
   border-color: #819c32;
   border-bottom-style: solid;
-
 }
 .homepage-title{
-  padding-top: 66px;
-  font-size: 4.4em;
+  padding-top: 202px;
+  font-size: 4.9em;
   color: #2a400a;
 }
 .homepage-subtitle{
@@ -241,7 +244,7 @@ ul
   padding-bottom: 30px;
 }
 .homepage-quote{
-   padding-top: 35px;
+   padding-top: 85px;
   padding-bottom: 30px;
 }
 .homepage-quote-content{
