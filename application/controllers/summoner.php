@@ -25,15 +25,7 @@ class Summoner extends MY_Controller
 		if($this->is_logged_in() && ($id == 'index' || $id == $this->get_userid()))
 		{
 			$id = $this->get_userid();
-			$data['games'] = $this->recent_games->get($id);
-			$gameids = array_keys($data['games']);
-			$_SESSION['user']['recent_gameids'] = $gameids;
 		}
-		else
-		{
-			$data['games'] = NULL;
-		}
-
 		if(!empty($id))
 		{
 			$summoner_name = $this->lol_api->getSummoner($id, 'name');
@@ -53,12 +45,6 @@ class Summoner extends MY_Controller
 					$data['title'] = $summoner_name[$id];
 				}
 				
-				$data['reviews'] = $this->review_model->get($id);
-				if($data['games'] != NULL)
-				{
-					$current_reviews = $this->review_model->recent($gameids);
-					$data['current'] = $current_reviews;
-				}
 				//parse data and display.
 				$stats = $this->review_model->statistics($id);
 
@@ -66,8 +52,7 @@ class Summoner extends MY_Controller
 				$data['review_stats'] = array_slice($stats, 4, 2);
 				$data['sub_title'] = "Look below for game reviews";
 			}
-		}	
-		
+		}
 		$this->view_wrapper('summoner', $data);
 	}
 }

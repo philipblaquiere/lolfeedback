@@ -135,7 +135,7 @@ function switchButtonToRegister()
     
 }
 
-$(".review").click(function(event) {
+$(document).on('click', ".review", function() {
     var buttonId = this.id;
     $("#"+buttonId).html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
 
@@ -167,28 +167,24 @@ $(".review").click(function(event) {
         data: review,
         success: function(data){
             $("#"+buttonId).html('');
-            var unorderedList = document.createElement('ul')
-            unorderedList.setAttribute('class', 'pull-left text-left')
-            var skillList = document.createElement('div')
-            skillList.setAttribute('class','skill-list')
+            var table = document.createElement('table')
 
             for(var skillId = 1; skillId < 5; skillId++)
             {
-                var row = document.createElement('li')
-                row.setAttribute('class', 'pull-right')
-                var skillGroup = document.createElement('div')
-                skillGroup.setAttribute('class','skill-group')
+                var row = document.createElement('tr')
+                row.setAttribute('class', 'skill-group')
 
-                var skillLabel = document.createElement('span')
+                var skillLabel = document.createElement('td')
                 skillLabel.setAttribute('data-toggle', 'tooltip')
                 skillLabel.setAttribute('class', 'text-right text-muted skill-label')
-                skillLabel.setAttribute('title', skillDescriptions[skillId])
                 skillLabel.insertAdjacentHTML('afterBegin', skillNames[skillId])
 
-                var radioSkills1 = document.createElement('div')
-                radioSkills1.setAttribute('class', 'btn-group btn-group-sm ')
-                radioSkills1.setAttribute('data-toggle', 'buttons')
-                radioSkills1.setAttribute('role', 'group')
+                var skillData = document.createElement('td')
+                skillData.setAttribute('class','skill-group')
+                var radioSkills = document.createElement('div')
+                radioSkills.setAttribute('class', 'btn-group btn-group-sm ')
+                radioSkills.setAttribute('data-toggle', 'buttons')
+                radioSkills.setAttribute('role', 'group')
                 for (var i = 1; i < 6; i++)
                 {
                     var skillButtonLabel = document.createElement('label')
@@ -201,33 +197,39 @@ $(".review").click(function(event) {
                     skillButton.setAttribute('class', 'skill-radio')
                     skillButton.setAttribute('id', buttonId +"-"+skillId+"-"+i)
                     skillButtonLabel.appendChild(skillButton)
-                    radioSkills1.appendChild(skillButtonLabel);
+                    radioSkills.appendChild(skillButtonLabel);
                 }
-                skillGroup.appendChild(skillLabel)
-                skillGroup.appendChild(radioSkills1)
-                row.appendChild(skillGroup)
-                skillList.appendChild(row)
-                unorderedList.appendChild(skillList)
+                skillData.appendChild(radioSkills)
+                row.appendChild(skillLabel)
+                row.appendChild(skillData)
+                table.appendChild(row)
             }
-            reviewArea.appendChild(unorderedList)
-            var formElement = document.createElement('ul')
+            reviewArea.appendChild(table)
+
+
+            var formElement = document.createElement('span')
+
             var messageElement = document.createElement('textarea')
+
             messageElement.setAttribute('placeholder', 'Leave a comment')
-            messageElement.setAttribute('rows', '3')
+           //messageElement.setAttribute('rows', '3')
             messageElement.setAttribute('class', 'review-message')
             messageElement.setAttribute('id', buttonId+"-content")
             var messageButtonElement = document.createElement('button')
             messageButtonElement.setAttribute('value', '1')
             messageButtonElement.setAttribute('id', buttonId+"-message-button")
-            messageButtonElement.setAttribute('class', 'btn btn-default review-message-button pull-right')
+            messageButtonElement.setAttribute('class', 'btn btn-default review-message-button')
             messageButtonElement.insertAdjacentHTML('afterBegin','Send')
             messageButtonElement.setAttribute('type', 'button')
-            var messageStatusElement = document.createElement('div')
+            var messageStatusElement = document.createElement('label')
             messageStatusElement.setAttribute('id', buttonId+"-review-message-status")
-            formElement.appendChild(messageElement)
-            formElement.appendChild(messageButtonElement)
-            formElement.appendChild(messageStatusElement)
-            messageArea.appendChild(formElement)
+
+            messageStatusElement.setAttribute('class', 'text-muted')
+
+            messageArea.appendChild(messageElement)
+            messageArea.appendChild(messageButtonElement)
+            messageArea.appendChild(messageStatusElement)
+            //messageArea.appendChild(formElement)
         },
         error:function(jqXHR, textStatus, errorThrown){
             $("#"+buttonId).html('An error has occured creating the review:' + textStatus)
@@ -238,6 +240,8 @@ $(".review").click(function(event) {
 
 $(document).on('click', ".review-message-button", function() {
     var buttonId = this.id;
+    var button = this
+    
     var ids = buttonId.split("-");
 
     var userid = ids[0]
@@ -253,6 +257,7 @@ $(document).on('click', ".review-message-button", function() {
     var message = textArea.value
     if(!message)
     {
+        $("#"+reviewid+"-review-message-status").html("Comment is empty")
         return
     }
 
@@ -260,7 +265,7 @@ $(document).on('click', ".review-message-button", function() {
         id: reviewid,
         message: message
     }
-
+    button.disabled = true
     /* Send the data using post and put the results in a div */
     $.ajax({
         url: "/lolfeedback/review/comment",
@@ -269,14 +274,56 @@ $(document).on('click', ".review-message-button", function() {
         dataType: 'JSON',
         success: function(data){
             $("#"+reviewid+"-review-message-status").html(data.msg)
+            button.disabled = false
         },
         error:function(data, jqXHR, textStatus, errorThrown){
             $("#"+reviewid+"-review-message-status").html('An error has occured creating the review');
+            button.disabled = false
             return;
         }
     });
 });
 
+$(document).on('click', ".refresh-feed", function() {
+    var buttonId = this.id;
+    var button = this
+    
+    var ids = buttonId.split("-");
+
+    var userid = ids[0]
+    
+    if(!userid)
+    {
+        return;
+    }
+    button.disabled = true
+    $("#"+userid+"-refresh-spinner").addClass("fa-spin")
+
+    var current_html = $("#sg_"+userid).html();
+    /* Send the data using post and put the results in a div */
+    $.ajax({
+        url: "/lolfeedback/games/refresh/"+userid,
+        type: 'POST',
+        data: {},
+        dataType: 'JSON',
+        success: function(data){
+
+            if(data.is_user == "true")
+            {
+                $("#sg_"+userid).html(data.game_content);
+            }
+            $("#sr_"+userid).html('');
+            $("#sr_"+userid).html(data.review_content);
+            button.disabled = false
+            $("#"+userid+"-refresh-spinner").removeClass("fa-spin")
+        },
+        error:function(data, jqXHR, textStatus, errorThrown){
+            $("#sr_"+userid).html('An error has occured while refreshing. Please try again');
+            $("#"+userid+"-refresh-spinner").removeClass("fa-spin")
+            return;
+        }
+    });
+});
 
 $(document).on('change', ".skill-radio", function() {
     var buttonId = this.id;
@@ -310,35 +357,43 @@ $(document).on('change', ".skill-radio", function() {
         success: function(data){
         },
         error:function(jqXHR, textStatus, errorThrown){
-            $("#"+buttonId).html('An error has occured creating the review:' + textStatus +errorThrown);
+            $("#"+buttonId).html('An error has occured giving feedback');
             return;
         }
     });
 });
 
 $(document).ready(function() {
-    if($('body').is('.summoner')){
 
+    if($('body').is('.summoner'))
+    {
         var summonerId = document.getElementsByTagName("body")[0].id
+        $("#sr_"+summonerId).html('<div class="row"><div class="col-md-1 col-md-offset-3"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
+
         if(summonerId == "index")
         {
             return;
         }
-        $("#sr_"+summonerId).html('<div class="row"><div class="col-md-1 col-md-offset-5"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
 
         $.ajax({
-        url: "/lolfeedback/review/get/"+summonerId,
-        type: 'POST',
-        data: {},
-        success: function(data){
-            $("#sr_"+summonerId).html();
-            $("#sr_"+summonerId).html(data);
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-            $("#"+buttonId).html('An error has occured creating the review:' + textStatus +errorThrown);
-            return;
-        }
-    });
-  }
+            url: "/lolfeedback/games/recent/"+summonerId,
+            type: 'POST',
+            dataType: 'JSON',
+            data: {},
+            success: function(data){
+                if(data.is_user == "true")
+                {
+                    $("#sg_"+summonerId).html(data.game_content);
+                }
+
+                $("#sr_"+summonerId).html('');
+                $("#sr_"+summonerId).html(data.review_content);
+            },
+            error:function(data, jqXHR, textStatus, errorThrown){
+                $("#"+summonerId).html('An error has occured creating the review:' + textStatus +errorThrown);
+                return;
+            }
+        });
+    }
 });
 

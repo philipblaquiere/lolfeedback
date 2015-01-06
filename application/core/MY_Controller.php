@@ -80,6 +80,7 @@ class MY_Controller extends CI_Controller  {
   {
     unset($_SESSION['user']);
     unset($_SESSION['player_names']);
+    unset($_SESSION['games']);
   }
 
   /**
