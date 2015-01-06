@@ -284,6 +284,42 @@ $(document).on('click', ".review-message-button", function() {
     });
 });
 
+$(document).on('click', ".forgot_password_btn", function() {
+    var email = document.getElementById('forgot_email')
+    if(email)
+    {
+        return;
+    }
+
+    //this.disabled = true
+    $("#"+userid+"-refresh-spinner").addClass("fa-spin")
+
+    var current_html = $("#sg_"+userid).html();
+    /* Send the data using post and put the results in a div */
+    $.ajax({
+        url: "lolfeedback/auth/reset_password"+userid,
+        type: 'POST',
+        data: {},
+        dataType: 'JSON',
+        success: function(data){
+
+            if(data.is_user == "true")
+            {
+                $("#sg_"+userid).html(data.game_content);
+            }
+            $("#sr_"+userid).html('');
+            $("#sr_"+userid).html(data.review_content);
+            //button.disabled = false
+            $("#"+userid+"-refresh-spinner").removeClass("fa-spin")
+        },
+        error:function(data, jqXHR, textStatus, errorThrown){
+            $("#sr_"+userid).html('An error has occured while refreshing. Please try again');
+            $("#"+userid+"-refresh-spinner").removeClass("fa-spin")
+            return;
+        }
+    });
+});
+
 $(document).on('click', ".refresh-feed", function() {
     var buttonId = this.id;
     var button = this

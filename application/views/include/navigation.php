@@ -27,40 +27,38 @@
             <li><a href="<?php echo site_url('register'); ?>">Register</a></li>
             <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In<strong class="caret"></strong></a>
               <div class="dropdown-menu sign_in_mini">
-                <?php echo form_open('auth/sign_in', array('class' => 'navbar-form form-horizontal', 'id' => 'signinform')); ?>
-                <div class="form-group">
+                <div class="row login ">
                   <div class="col-sm-12">
-                    <?php echo form_input(array('name' => 'email', 'class' => 'form-control input-sm', 'placeholder' => 'Email' , 'size' => '30')); ?>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-sm-12">
-                    <?php echo form_password(array('name' => 'password', 'class' => 'form-control input-sm', 'placeholder' => 'Password', 'size' => '30')); ?>
-                  </div>
-                </div>
-                <a href="<?php echo site_url('auth/forgot_password'); ?>">Forgot Password?</a>
-                <div class="form-group">
-                  <div class="col-sm-5 pull-right">
-                    <?php echo form_submit('submit', 'Sign In', "class='btn btn-default btn-sm pull-left'"); ?>
+                    <?php echo form_open('auth/sign_in', array('id' => 'signinform')); ?>
+                    <div class="form-group">
+                      <?php echo form_input(array('name' => 'email', 'class' => 'form-control', 'placeholder' => 'Email' )); ?>
+                    </div>
+                    <div class="form-group">
+                      <?php echo form_password(array('name' => 'password', 'class' => 'form-control', 'placeholder' => 'Password')); ?>
+                    </div>
+                    <a href="<?php echo site_url('auth/forgot'); ?>">Forgot Password?</a>
+                    <div class="form-group pull-right">
+                      <?php echo form_submit('submit', 'Sign In', "class='btn btn-default btn-sm pull-left'"); ?>
+                    </div>
+                    <?php echo form_close(); ?>
                   </div>
                 </div>
               </div>
-            <?php echo form_close(); ?>
-          <?php endif; ?>
-          <li>
-            <?php echo form_open('search', array('class' => 'navbar-form navbar-right', 'id' => 'search_summoner', 'role' => 'search')); ?>
-            <div class="input-group search">
-              <?php echo form_input(array('name' => 'search', 'class' => 'form-control', 'placeholder' => 'Search Summoner', 'id' => 'search_textbox')); ?>
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-default">Search</button>
-              </span>
-            </div>
-            <?php echo form_close(); ?>
-          </li>
-        </ul>
+            <?php endif; ?>
+            <li>
+              <?php echo form_open('search', array('class' => 'navbar-form navbar-right', 'id' => 'search_summoner', 'role' => 'search')); ?>
+              <div class="input-group search">
+                <?php echo form_input(array('name' => 'search', 'class' => 'form-control', 'placeholder' => 'Search Summoner', 'id' => 'search_textbox')); ?>
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default">Search</button>
+                </span>
+              </div>
+              <?php echo form_close(); ?>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
-  <!-- Static nav -->
-  <div class="wrapper">
+    </nav>
+    <!-- Static nav -->
+    <div class="wrapper">
   <!-- Wrapper -->

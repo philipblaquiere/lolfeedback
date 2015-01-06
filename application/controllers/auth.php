@@ -76,6 +76,23 @@ class Auth extends MY_Controller
     redirect('home', 'location');
   }
 
+  public function reset_password()
+  {
+    $content = $_POST;
+    $user = $this->user_model->get(strtolower(trim($content['email'])));
+    if(empty($user))
+    {
+      return;
+    }
+
+  }
+
+  public function forgot()
+  {
+    $data['page'] = "forgot";
+    $this->view_wrapper('forgot_password', $data);
+  }
+
   private function _validate_password($user,$password)
   {
     if(!$password || !$user['email'])

@@ -34,6 +34,9 @@
   border: 1px solid #a8d26c;
   background: #fffebb;
 }
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
 .space {
   padding-top: 20px;
 }
@@ -312,6 +315,7 @@ ul
 .registration-errors{
   vertical-align: middle;
 }
+
 .color-pallette{
   #0ba89c teal
   #7c1c22 red
