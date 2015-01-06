@@ -1,3 +1,39 @@
+<script language="JavaScript" type="text/javascript">
+$(window).load(function() {
+
+    if($('body').is('.summoner'))
+    {
+        var summonerId = document.getElementsByTagName("body")[0].id
+        $("#sr_"+summonerId).html('<div class="row"><div class="col-md-1 col-md-offset-3"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
+
+        if(summonerId == "index")
+        {
+            return;
+        }
+
+        $.ajax({
+            url: '<?php echo site_url('games/recent') . "/"?>'+summonerId,
+            type: 'POST',
+            dataType: 'JSON',
+            data: {},
+            success: function(data){
+                if(data.is_user == "true")
+                {
+                    $("#sg_"+summonerId).html(data.game_content);
+                }
+
+                $("#sr_"+summonerId).html('');
+                $("#sr_"+summonerId).html(data.review_content);
+            },
+            error:function(data, jqXHR, textStatus, errorThrown){
+                $("#"+summonerId).html('An error has occured loading the profile:' + textStatus +errorThrown);
+                return;
+            }
+        });
+    }
+});
+</script>
+
 <div class="container">
   <div class="summoner-title">
     <div class="row">

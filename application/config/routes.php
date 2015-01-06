@@ -40,6 +40,7 @@
 
 $route['default_controller'] = "home";
 $route['404_override'] = '';
+$rout['summoner/games'] = "games";
 
 
 /* End of file routes.php */
