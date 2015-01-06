@@ -52,7 +52,7 @@ $(document).on('submit','#initial-registration',function(event)
 
      /* Check db if email is already used*/
     $.ajax({
-        url: '/ajax/validate_register',
+        url: '/lolfeedback/ajax/validate_register',
         type: "post",
         data: registerInfo,
         dataType: 'JSON',
@@ -86,7 +86,7 @@ $(document).on('submit','#rune_page_verification',function(event) {
 
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: '/ajax/rune_page_verification',
+        url: '/lolfeedback/ajax/rune_page_verification',
         type: "get",
         data: {},
         success: function(data){
@@ -162,7 +162,7 @@ $(document).on('click', ".review", function() {
     }
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "/review/create",
+        url: "lolfeedback/review/create",
         type: 'POST',
         data: review,
         success: function(data){
@@ -268,7 +268,7 @@ $(document).on('click', ".review-message-button", function() {
     button.disabled = true
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "/review/comment",
+        url: "lolfeedback/review/comment",
         type: 'POST',
         data: review,
         dataType: 'JSON',
@@ -302,7 +302,7 @@ $(document).on('click', ".refresh-feed", function() {
     var current_html = $("#sg_"+userid).html();
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "/games/refresh/"+userid,
+        url: "lolfeedback/games/refresh/"+userid,
         type: 'POST',
         data: {},
         dataType: 'JSON',
@@ -351,7 +351,7 @@ $(document).on('change', ".skill-radio", function() {
 
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "/review/update",
+        url: "lolfeedback/review/update",
         type: 'POST',
         data: review,
         success: function(data){
@@ -376,7 +376,7 @@ $(document).ready(function() {
         }
 
         $.ajax({
-            url: "/games/recent/"+summonerId,
+            url: "/lolfeedback/games/recent/"+summonerId,
             type: 'POST',
             dataType: 'JSON',
             data: {},

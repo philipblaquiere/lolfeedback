@@ -20,14 +20,14 @@
             <li>   
               <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#"><span class="fa fa-caret-down"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="<?php echo site_url('sign_in/sign_out'); ?>">Sign out</a></li>
+                <li><a href="<?php echo site_url('auth/sign_out'); ?>">Sign out</a></li>
               </ul>
             </li>
           <?php else: ?>
             <li><a href="<?php echo site_url('register'); ?>">Register</a></li>
             <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In<strong class="caret"></strong></a>
               <div class="dropdown-menu sign_in_mini">
-                <?php echo form_open('sign_in', array('class' => 'navbar-form form-horizontal', 'id' => 'signinform')); ?>
+                <?php echo form_open('auth/sign_in', array('class' => 'navbar-form form-horizontal', 'id' => 'signinform')); ?>
                 <div class="form-group">
                   <div class="col-sm-12">
                     <?php echo form_input(array('name' => 'email', 'class' => 'form-control input-sm', 'placeholder' => 'Email' , 'size' => '30')); ?>
@@ -38,14 +38,13 @@
                     <?php echo form_password(array('name' => 'password', 'class' => 'form-control input-sm', 'placeholder' => 'Password', 'size' => '30')); ?>
                   </div>
                 </div>
-                <a href="<?php echo site_url('sign_in/forgot_password'); ?>">Forgot Password?</a>
+                <a href="<?php echo site_url('auth/forgot_password'); ?>">Forgot Password?</a>
                 <div class="form-group">
                   <div class="col-sm-5 pull-right">
                     <?php echo form_submit('submit', 'Sign In', "class='btn btn-default btn-sm pull-left'"); ?>
                   </div>
                 </div>
               </div>
-            </li>
             <?php echo form_close(); ?>
           <?php endif; ?>
           <li>

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Sign_in extends MY_Controller
+class Auth extends MY_Controller
 {
 	/**
 	 * Constructor: initialize required libraries.
@@ -15,7 +15,7 @@ class Sign_in extends MY_Controller
 
   public function index()
   {
-    $this->sign_in();
+    $this->login();
   }
 
   public function login()
@@ -25,7 +25,8 @@ class Sign_in extends MY_Controller
       redirect('home', 'location');
     }
     $data = array('page_title' => 'Sign In');
-    $this->view_wrapper('user/sign_in', $data, false);
+    $data['page'] = "login";
+    $this->view_wrapper('sign_in', $data, false);
   }
 
   public function sign_in()
@@ -39,7 +40,8 @@ class Sign_in extends MY_Controller
 
     if($this->form_validation->run() == FALSE)
     {
-        $this->view_wrapper('sign_in');
+      $data['page'] = "login";
+      $this->view_wrapper('sign_in',$data);
     }
     else
     {
