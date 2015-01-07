@@ -1,5 +1,4 @@
 <div class="container" >
-	<
 	<div class="row homepage-pitch-main-title brand ">
 		LoL Fe<span id="email-envelope"><i class="fa fa-envelope-o"></i></span>dback
 	</div>

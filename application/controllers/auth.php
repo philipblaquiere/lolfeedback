@@ -82,6 +82,7 @@ class Auth extends MY_Controller
 
     if($id == NULL || $code == NULL)
     {
+      $this->system_message_model->set_message('Error reading the id and code :' . $id. "-" .$code, MESSAGE_INFO);
       redirect('home');
     }
 
@@ -89,16 +90,20 @@ class Auth extends MY_Controller
 
     $this->form_validation->set_rules('password2', 'Repeat New Password', 'trim|required|xss_clean|min_length[6]');
     $this->form_validation->set_rules('password', 'New Password', 'trim|required|xss_clean|min_length[6]|matches[password2]');
+
     $user = $this->user_model->is_reset_valid($id, $code);
 
     if ($this->form_validation->run() == FALSE)
     {
-      if($user)
+      if(!empty($user))
       {
         $data['user'] = $user;
         $data['page'] = "reset";
         $this->view_wrapper('reset_password', $data);
+        return;
       }
+
+      $this->system_message_model->set_message('User not found.', MESSAGE_INFO);
       redirect('home');
     }
     else if(!empty($user) && array_key_exists('id', $user))
@@ -111,7 +116,7 @@ class Auth extends MY_Controller
     }
     else
     {
-      redirect('home');
+       redirect('home');
     }
   }
 
@@ -120,31 +125,41 @@ class Auth extends MY_Controller
     $content = $_POST;
 
     if(!array_key_exists('email', $content))
-    {
+    { 
+      $data['status'] = "success";
+      $data['message'] = "No email found ";
+      echo json_encode($data);
       return;
     }
 
     $user = $this->user_model->get(strtolower(trim($content['email'])));
     if(empty($user))
     {
+      $data['status'] = "success";
+      $data['message'] = "No user found";
+      echo json_encode($data);
       return;
     }
 
     $this->load->library('email');
+    $config['mailpath'] = '/lolfeedback.com/noreply/.Sent';
+    $config['smtp_user'] = 'noreply@lolfeedback.com';
+    $config['smtp_pass'] = ';nl.8kjm9ol';
+    $this->email->initialize($config);
     $this->email->from('noreply@lolfeedback.com', 'LoL Feedback');
     $this->email->to($user['email']);
 
     $this->email->subject('Reset your LoL Feedback password');
-
-    $message = "www.lolfeedback.com/auth/reset/".$user['id'] ."/".$this->_generate_random_string(42);
-    $this->email->message('Testing the email class.');  
-
-
+    $code = $this->_generate_random_string(42);
+    $message = "www.lolfeedback.com/auth/reset/".$user['id'] ."/". $code;
+    $this->email->message($message);  
+    
     if($this->email->send())
     {
-      $this->user_model->create_password_reset($id, $code);
+      $this->user_model->create_password_reset($user['id'], $code);
       $data['status'] = "success";
-      $data['message'] = "An email has been successfully sent to " . $user['email'] . ". Please wait a couple moments before receiving the email.";
+      $data['message'] = "An email has been successfully sent to " . $user['email'] . ". Please wait a couple moments before receiving the email. ";
+      $data['message'] = $this->email->print_debugger();
       echo json_encode($data);
       return;
     }

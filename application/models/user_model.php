@@ -62,7 +62,8 @@ class User_Model extends CI_Model
     $sql = "INSERT INTO reset_password (userid, code)
             VALUES ('" . $id . "', '" . $code . "')
             ON DUPLICATE KEY UPDATE
-            code = '$code'";
+            code = '$code', 
+            created = current_timestamp";
     
     $this->db1->query($sql);
   }
@@ -81,7 +82,7 @@ class User_Model extends CI_Model
 
   public function is_reset_valid($id, $code)
   {
-    $sql = "SELECT u.* FROM user u, reset_password rp
+    $sql = "SELECT u.* FROM users u, reset_password rp
             WHERE u.id = '$id'
               AND u.id = rp.userid
               AND rp.code = '$code'
