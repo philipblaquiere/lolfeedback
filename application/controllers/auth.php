@@ -103,7 +103,7 @@ class Auth extends MY_Controller
         return;
       }
 
-      $this->system_message_model->set_message('User not found.', MESSAGE_INFO);
+      $this->system_message_model->set_message('Code is no longer valid.', MESSAGE_INFO);
       redirect('home');
     }
     else if(!empty($user) && array_key_exists('id', $user))
@@ -151,15 +151,14 @@ class Auth extends MY_Controller
 
     $this->email->subject('Reset your LoL Feedback password');
     $code = $this->_generate_random_string(42);
-    $message = "www.lolfeedback.com/auth/reset/".$user['id'] ."/". $code;
+    $message = "Click on the link below to reset your password\n\n www.lolfeedback.com/auth/reset/".$user['id'] ."/". $code;
     $this->email->message($message);  
     
     if($this->email->send())
     {
       $this->user_model->create_password_reset($user['id'], $code);
       $data['status'] = "success";
-      $data['message'] = "An email has been successfully sent to " . $user['email'] . ". Please wait a couple moments before receiving the email. ";
-      $data['message'] = $this->email->print_debugger();
+      $data['message'] = "An email has been sent to " . $user['email'] . ". Please wait a couple moments before receiving the email. ";
       echo json_encode($data);
       return;
     }
