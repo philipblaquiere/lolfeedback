@@ -56,4 +56,38 @@ class User_Model extends CI_Model
             WHERE id = '$uid'";
     $this->db1->query($sql);
   }
+
+  public function create_password_reset($id, $code)
+  {
+    $sql = "INSERT INTO reset_password (userid, code)
+            VALUES ('" . $id . "', '" . $code . "')
+            ON DUPLICATE KEY UPDATE
+            code = '$code'";
+    
+    $this->db1->query($sql);
+  }
+
+  public function reset_password($id, $password)
+  {
+    $sql = "UPDATE {$this->table} 
+            SET password = '$password'
+            WHERE id = '$id'";
+    $this->db1->query($sql);
+
+    $sql = "DELETE FROM reset_password
+            WHERE userid = '$id'";
+    $this->db1->query($sql);
+  }
+
+  public function is_reset_valid($id, $code)
+  {
+    $sql = "SELECT u.* FROM user u, reset_password rp
+            WHERE u.id = '$id'
+              AND u.id = rp.userid
+              AND rp.code = '$code'
+              LIMIT 1";
+    $result = $this->db1->query($sql);
+    $result = $result->row_array();
+    return $result;
+  }
 }

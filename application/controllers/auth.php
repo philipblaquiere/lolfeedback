@@ -26,7 +26,7 @@ class Auth extends MY_Controller
     }
     $data = array('page_title' => 'Sign In');
     $data['page'] = "login";
-    $this->view_wrapper('sign_in', $data, false);
+    $this->view_wrapper('sign_in', $data);
   }
 
   public function sign_in()
@@ -76,15 +76,85 @@ class Auth extends MY_Controller
     redirect('home', 'location');
   }
 
-  public function reset_password()
+  public function reset($id, $code)
+  {
+    $this->require_not_login();
+
+    if($id == NULL || $code == NULL)
+    {
+      redirect('home');
+    }
+
+    $this->load->library('form_validation');
+
+    $this->form_validation->set_rules('password2', 'Repeat New Password', 'trim|required|xss_clean|min_length[6]');
+    $this->form_validation->set_rules('password', 'New Password', 'trim|required|xss_clean|min_length[6]|matches[password2]');
+    $user = $this->user_model->is_reset_valid($id, $code);
+
+    if ($this->form_validation->run() == FALSE)
+    {
+      if($user)
+      {
+        $data['user'] = $user;
+        $data['page'] = "reset";
+        $this->view_wrapper('reset_password', $data);
+      }
+      redirect('home');
+    }
+    else if(!empty($user) && array_key_exists('id', $user))
+    {
+      $passwords = $this->input->post();
+      $password = $this->password_hash($passwords['password']);
+      $this->user_model->reset_password($user['id'], $password);
+      $this->system_message_model->set_message('Password has been reset successfully', MESSAGE_INFO);
+      redirect('home');
+    }
+    else
+    {
+      redirect('home');
+    }
+  }
+
+  public function send_reset_email()
   {
     $content = $_POST;
+
+    if(!array_key_exists('email', $content))
+    {
+      return;
+    }
+
     $user = $this->user_model->get(strtolower(trim($content['email'])));
     if(empty($user))
     {
       return;
     }
 
+    $this->load->library('email');
+    $this->email->from('noreply@lolfeedback.com', 'LoL Feedback');
+    $this->email->to($user['email']);
+
+    $this->email->subject('Reset your LoL Feedback password');
+
+    $message = "www.lolfeedback.com/auth/reset/".$user['id'] ."/".$this->_generate_random_string(42);
+    $this->email->message('Testing the email class.');  
+
+
+    if($this->email->send())
+    {
+      $this->user_model->create_password_reset($id, $code);
+      $data['status'] = "success";
+      $data['message'] = "An email has been successfully sent to " . $user['email'] . ". Please wait a couple moments before receiving the email.";
+      echo json_encode($data);
+      return;
+    }
+    else
+    {
+      $data['status'] = "fail";
+      $data['message'] = "Error occured while sending an email to " . $user['email'] . ". Please try again";
+      echo json_encode($data);
+      return;
+    }
   }
 
   public function forgot()
@@ -98,5 +168,14 @@ class Auth extends MY_Controller
     if(!$password || !$user['email'])
       return false;
     return $user['password'] === $this->password_hash($password);
+  }
+
+  private function _generate_random_string($length = 10) {
+      $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $randomString = '';
+      for ($i = 0; $i < $length; $i++) {
+          $randomString .= $characters[rand(0, strlen($characters) - 1)];
+      }
+      return $randomString;
   }
 }

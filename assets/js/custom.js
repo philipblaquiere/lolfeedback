@@ -286,35 +286,34 @@ $(document).on('click', ".review-message-button", function() {
 
 $(document).on('click', ".forgot_password_btn", function() {
     var email = document.getElementById('forgot_email')
-    if(email)
+    email = email.value
+    if(!email)
     {
         return;
     }
-
-    //this.disabled = true
-    $("#"+userid+"-refresh-spinner").addClass("fa-spin")
-
-    var current_html = $("#sg_"+userid).html();
+    var emailData = {
+        email: email
+    }
+    $("#email-envelope").fadeOut('400', function(){});
+    $("#reset-password-content").fadeOut('400', function(){});
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "lolfeedback/auth/reset_password"+userid,
+        url: "/lolfeedback/auth/send_reset_email",
         type: 'POST',
-        data: {},
+        data: emailData,
         dataType: 'JSON',
         success: function(data){
-
-            if(data.is_user == "true")
-            {
-                $("#sg_"+userid).html(data.game_content);
-            }
-            $("#sr_"+userid).html('');
-            $("#sr_"+userid).html(data.review_content);
-            //button.disabled = false
-            $("#"+userid+"-refresh-spinner").removeClass("fa-spin")
+                $("#email-envelope").html('e')
+                $("#reset-password-content").html(data.message)
+                $("#email-envelope").fadeIn('400', function(){});
+                $("#reset-password-content").fadeIn('400', function(){});
+           return;
         },
         error:function(data, jqXHR, textStatus, errorThrown){
-            $("#sr_"+userid).html('An error has occured while refreshing. Please try again');
-            $("#"+userid+"-refresh-spinner").removeClass("fa-spin")
+             $("#reset-password-content").children().fadeOut('200', function(){ 
+                $("#reset-password-content").html('An error has occured')
+                $("#reset-password-content").fadeIn('400', function(){});
+            });
             return;
         }
     });
