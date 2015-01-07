@@ -21,10 +21,18 @@ class Summoner extends MY_Controller
 		$data['id'] = $id;	
 		$data['page'] = "summoner";
 		$data['summonerid'] = $id;
-
-		if($this->is_logged_in() && ($id == 'index' || $id == $this->get_userid()))
+		if(!$this->is_logged_in())
 		{
+			redirect('home');
+			return;
+		}
+
+		if($this->is_logged_in() && ($id == NULL || $id == 'index'))
+		{
+			//user is signed in, navigate to summoner/id page
 			$id = $this->get_userid();
+			redirect('summoner/'.$id);
+			return;
 		}
 		if(!empty($id))
 		{
@@ -53,6 +61,7 @@ class Summoner extends MY_Controller
 				$data['sub_title'] = "Look below for game reviews";
 			}
 		}
+		//should never come here
 		$this->view_wrapper('summoner', $data);
 	}
 }

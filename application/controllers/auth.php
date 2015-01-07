@@ -52,22 +52,26 @@ class Auth extends MY_Controller
       $user = $this->user_model->get($email);
       if(!$user)
       {
+        //no user found
         $this->system_message_model->set_message('There is an error in your email or password', MESSAGE_INFO);
         redirect('home', 'location');
       }
       else if($user['validated'] == 0)
       {
+        //user exists but hasn't validated the account.
         $this->system_message_model->set_message('You haven\'t validated your account yet. Check your emails for an activation link', MESSAGE_INFO);
         redirect('home', 'location');
       }
       else if($this->_validate_password($user,$password)) 
       {
+        //login success
         $this->user_model->log_login($user['id']);
         $this->set_user($user);
         redirect('summoner/'.$user['id'], 'location');
       }
       else
       {
+        //login fail email/pass error
         $this->system_message_model->set_message('There is an error in your email or password', MESSAGE_INFO);
         redirect('home', 'location');
       }
