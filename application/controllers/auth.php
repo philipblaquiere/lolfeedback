@@ -148,7 +148,7 @@ class Auth extends MY_Controller
     if(!array_key_exists('email', $content))
     { 
       $data['status'] = "success";
-      $data['message'] = "An email has been sent to " . $user['email'] . ". Please wait a couple moments before receiving the email.";
+      $data['message'] = "An error has occured retrieving your email. Please refresh and try again.";
       echo json_encode($data);
       return;
     }
@@ -157,7 +157,7 @@ class Auth extends MY_Controller
     if(empty($user))
     {
       $data['status'] = "success";
-      $data['message'] = "No user found";
+      $data['message'] = "An email has been sent to " . $content['email'] . ". Please wait a couple moments before receiving the email.";
       echo json_encode($data);
       return;
     }
