@@ -20,11 +20,7 @@
   <link href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet" />
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Hammersmith+One|Open+Sans:700italic,400' rel='stylesheet' type='text/css'>
-  <link href="<?php echo base_url('assets/css/marketing.css') ?>" rel="stylesheet" />
-  <link href="<?php echo base_url('assets/css/navbar.css') ?>" rel="stylesheet" />
-  <link href="<?php echo base_url('assets/css/datepicker.css') ?>" rel="stylesheet" />
   <link href="<?php echo base_url('assets/css/custom.css') ?>" rel="stylesheet" />
-  <link href="<?php echo base_url('assets/css/bootstrap-timepicker.css') ?>" rel="stylesheet" />
   <!--<link href="<?php echo base_url('assets/css/fbscript.css') ?>" rel="stylesheet" />-->
 </head>
 

@@ -42,7 +42,6 @@ class MY_Controller extends CI_Controller  {
     }
 
     $this->load->view('include/navigation', $data);
-    $this->load->view('include/container', $data);
     $this->load->view('include/system_messages', $data);
     $this->load->view($template, $data);
     $this->load->view('include/footer');
