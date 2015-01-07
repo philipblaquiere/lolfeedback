@@ -37,9 +37,6 @@
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
-.space {
-  padding-top: 20px;
-}
 .footer {
   margin: 7em 0 1em 0;
   padding: 1em 0 1em 0;
@@ -49,13 +46,19 @@ input:-webkit-autofill {
 .space{
   padding-top: 50px;
 }
+.rune-page-fail{
+  font-size: 1.1em;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
 .user-autocomplete.form-inline .search-username {
   width: 200px;
 }
+
 .user-autocomplete.form-inline .display-username {
   width: 320px;
 }
-
 
 .banner-title-big:hover {
   padding: 0px 0px 0px 0px ;

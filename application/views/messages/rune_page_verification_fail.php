@@ -1,1 +1,1 @@
-<span class="label label-danger"><?php echo $errormessage ?></span>
+<span class="label label-danger rune-page-fail"><?php echo $errormessage ?></span>

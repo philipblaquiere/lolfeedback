@@ -55,6 +55,11 @@ class Auth extends MY_Controller
         $this->system_message_model->set_message('There is an error in your email or password', MESSAGE_INFO);
         redirect('home', 'location');
       }
+      else if($user['validated'] == 0)
+      {
+        $this->system_message_model->set_message('You haven\'t validated your account yet. Check your emails for an activation link', MESSAGE_INFO);
+        redirect('home', 'location');
+      }
       else if($this->_validate_password($user,$password)) 
       {
         $this->user_model->log_login($user['id']);
@@ -76,6 +81,22 @@ class Auth extends MY_Controller
     redirect('home', 'location');
   }
 
+  public function activate($id, $code)
+  {
+    $user['id'] = $id;
+    $user['code'] = $code;
+
+    if($this->user_model->activate($user))
+    {
+      $this->system_message_model->set_message('Account has been validated, sign in below.', MESSAGE_INFO);
+      redirect('auth/login');
+    }
+    else
+    {
+      $this->system_message_model->set_message('Activation code is no longer valid.', MESSAGE_INFO);
+      redirect('home');
+    }
+  }
   public function reset($id, $code)
   {
     $this->require_not_login();

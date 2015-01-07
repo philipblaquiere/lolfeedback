@@ -34,6 +34,48 @@ class User_Model extends CI_Model
             VALUES ('" . $user['id'] . "', '" . $user['name'] . "', '" . strtolower($user['email']) . "', '" . $user['password'] . "')";
     
     $this->db1->query($sql);
+    $this->pend_user($user);
+  }
+
+  public function activate($user)
+  {
+    $id = $user['id'];
+    $code = $user['code'];
+    $sql = "SELECT u.* FROM users u, pending_users pu
+            WHERE u.id = $id
+                  pu.userid = u.id
+                  pu.code = '$code'
+            LIMIT 1";
+
+    $result = $this->db1->query($sql);
+    $user = $result->row_array();
+    if(!empty($user))
+    {
+      $sql = "UPDATE {$this->table} 
+            SET validate = 1
+            WHERE id = '$id'";
+      $this->db1->query($sql);
+
+      $sql = "DELETE FROM pending_users
+              WHERE userid = '$id'";
+      $this->db1->query($sql);
+      return TRUE;
+    }
+    return FALSE;
+
+    
+  }
+
+  public function pend_user($user)
+  {
+    $code = $user['code'];
+    $sql = "INSERT INTO pending_users (userid, code)
+            VALUES ('" . $user['id'] . "', '" . $code . "')
+            ON DUPLICATE KEY UPDATE
+            code = '$code', 
+            created = current_timestamp";
+    
+    $this->db1->query($sql);
   }
   
   public function generate_rune_page_key()

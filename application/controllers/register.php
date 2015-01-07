@@ -68,7 +68,7 @@ class Register extends MY_Controller
       return TRUE;
     }
   }
- public function create()
+  public function create()
   {
     $this->load->library('form_validation');
 
@@ -91,10 +91,39 @@ class Register extends MY_Controller
       //Save user object and get key to send to user email.
       $user['id'] = $_SESSION['player']['id'];
       $user['name'] = $_SESSION['player']['name'];
+      $code = $this->_generate_random_string(42);
+      $user['code'] = $code;
       $this->user_model->create($user);
-      $this->system_message_model->set_message($user['name'] . ', you have successfully linked your League of Legends account! You can now post comments.', MESSAGE_INFO);
+
+      $this->load->library('email');
+      $config['mailpath'] = '/lolfeedback.com/noreply/.Sent';
+      $config['smtp_user'] = 'noreply@lolfeedback.com';
+      $config['smtp_pass'] = ';nl.8kjm9ol';
+      $this->email->initialize($config);
+      $this->email->from('noreply@lolfeedback.com', 'LoL Feedback');
+      $this->email->to($user['email']);
+
+      $this->email->subject('Activate your LoL Feedback account');
+      $message = "Click on the link below to activate your LoL Feedback account!\n\n www.lolfeedback.com/auth/activate/".$user['id'] ."/". $code;
+      if($this->email->message($message))
+      {
+        $this->system_message_model->set_message($user['name'] . ', check your inbox, we emailed you a link to validate your account!', MESSAGE_INFO);
+      }
+      else
+      {
+        $this->system_message_model->set_message($user['name'] . ', something fishy happened while sending you an email. Check your inbox for a validation link.', MESSAGE_INFO);
+      }
       $data['page'] = "home";
       redirect('home', $data);
     }  
+  }
+
+  private function _generate_random_string($length = 10) {
+      $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $randomString = '';
+      for ($i = 0; $i < $length; $i++) {
+          $randomString .= $characters[rand(0, strlen($characters) - 1)];
+      }
+      return $randomString;
   }
 }
