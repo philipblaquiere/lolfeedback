@@ -337,7 +337,7 @@ $(document).on('click', ".refresh-feed", function() {
     var current_html = $("#sg_"+userid).html();
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "lolfeedback/games/refresh/"+userid,
+        url: "/lolfeedback/games/refresh/"+userid,
         type: 'POST',
         data: {},
         dataType: 'JSON',
