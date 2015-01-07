@@ -36,7 +36,7 @@
       </div>
       <?php if(array_key_exists('user', $_SESSION) && $_SESSION['user']['id'] == $id) { ?>
       <div class="col-md-1">
-        <button type="button" class="btn btn-default refresh-feed" id="<?php echo $_SESSION['user']['id'] ?>-refresh" aria-label="Refresh Feed">
+        <button type="button" class="btn btn-default refresh-feed" id="<?php echo $_SESSION['user']['id'] ?>-refresh" title="Fetch new games" aria-label="Refresh Feed">
          <i class="fa fa-refresh" id="<?php echo $_SESSION['user']['id'] ?>-refresh-spinner"></i></span>
         </button>
       </div>

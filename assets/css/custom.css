@@ -37,6 +37,10 @@
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
+.sign_in_mini{
+  width: 250px;
+  padding: 10px;
+}
 .footer {
   margin: 7em 0 1em 0;
   padding: 1em 0 1em 0;

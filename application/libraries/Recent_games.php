@@ -15,6 +15,8 @@ class Recent_games
     const LOL_CHAMPIONID = "championId";
     const LOL_GAMEMODE = "gameMode";
     const LOL_CREATEDATE = "createDate";
+    const LOL_GAMETYPE = "gameType";
+    const LOL_MATCHEDGAME = "MATCHED_GAME";
 
 
   	private $CI;
@@ -36,13 +38,20 @@ class Recent_games
     	$games = array();
     	if(!empty($recent_games[self::LOL_GAMES]))
     	{
-	    	for ($i=0; $i < self::NUM_GAMES_RETURN; $i++)
+            $i = 0;
+
+	    	while (count($games) < self::NUM_GAMES_RETURN)
 	    	{
-	    		if(array_key_exists($i, $recent_games[self::LOL_GAMES])) 
+                if($i == 10)
+                {
+                    //no more games in array;
+                    return $games;
+                }
+	    		if(array_key_exists($i, $recent_games[self::LOL_GAMES]) && $recent_games[self::LOL_GAMES][$i][self::LOL_GAMETYPE] == self::LOL_MATCHEDGAME) 
                 {
                     $games[$recent_games[self::LOL_GAMES][$i][self::LOL_GAMEID]] = $this->format($recent_games[self::LOL_GAMES][$i], $id, $player_names);    
                 }
-	    		
+                $i++;
 	    	}	
     	}
     	return $games;
