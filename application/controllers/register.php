@@ -14,7 +14,8 @@ class Register extends MY_Controller
   
   public function index()
   {
-    //Validation on input (requires that all fields exist)
+    //Validation on input (requires that all fields exist)'
+    $this->require_not_login();
     $data['page'] = "register";
     $this->view_wrapper('register', $data);
   }
