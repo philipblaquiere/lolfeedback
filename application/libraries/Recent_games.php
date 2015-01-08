@@ -34,25 +34,34 @@ class Recent_games
     {
     	//Check lol api
     	$recent_games = $this->CI->lol_api->get_recent_matches($id);
-        $player_names = $this->get_player_names($recent_games, $id);
+
     	$games = array();
+        $valid_games = array();
     	if(!empty($recent_games[self::LOL_GAMES]))
     	{
             $i = 0;
 
-	    	while (count($games) < self::NUM_GAMES_RETURN)
+	    	while (count($valid_games) < self::NUM_GAMES_RETURN)
 	    	{
                 if($i == 10)
                 {
                     //no more games in array;
-                    return $games;
+                    break;
                 }
 	    		if(array_key_exists($i, $recent_games[self::LOL_GAMES]) && $recent_games[self::LOL_GAMES][$i][self::LOL_GAMETYPE] == self::LOL_MATCHEDGAME) 
                 {
-                    $games[$recent_games[self::LOL_GAMES][$i][self::LOL_GAMEID]] = $this->format($recent_games[self::LOL_GAMES][$i], $id, $player_names);    
+                    $valid_games[$recent_games[self::LOL_GAMES][$i][self::LOL_GAMEID]] = $recent_games[self::LOL_GAMES][$i];
                 }
                 $i++;
-	    	}	
+	    	}
+            if(!empty($valid_games))
+            {
+                $player_names = $this->get_player_names($valid_games, $id);
+                foreach ($valid_games as $gameid => $game)
+                {     
+                    $games[$gameid] = $this->format($game, $id, $player_names);   
+                } 
+            }
     	}
     	return $games;
     }
@@ -104,15 +113,11 @@ class Recent_games
     {
         $playerids = array();
         array_push($playerids, $id);
-        for ($i=0; $i < self::NUM_GAMES_RETURN; $i++)
+        foreach ($games as $gameid => $game)
         {
-            if($games != null && array_key_exists($i, $games[self::LOL_GAMES]))
+            foreach ($game[self::LOL_PLAYERS] as $player)
             {
-                $game = $games[self::LOL_GAMES][$i];
-                foreach ($game[self::LOL_PLAYERS] as $player)
-                {
-                    array_push($playerids, $player[self::LOL_SUMMONERID]);
-                }
+                array_push($playerids, $player[self::LOL_SUMMONERID]);
             }
         }
         $summoner_names = $this->CI->lol_api->getSummoner(implode(",", $playerids), self::LOL_SUMMONERNAME);

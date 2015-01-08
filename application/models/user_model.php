@@ -41,18 +41,18 @@ class User_Model extends CI_Model
   {
     $id = $user['id'];
     $code = $user['code'];
-    $sql = "SELECT u.* FROM users u, pending_users pu
-            WHERE u.id = $id
-                  pu.userid = u.id
-                  pu.code = '$code'
-            LIMIT 1";
+    $sql = "SELECT u.* FROM users u, pending_users rp
+            WHERE u.id = '$id' AND
+               u.id = rp.userid AND
+               rp.code = '$code'
+              LIMIT 1";
 
     $result = $this->db1->query($sql);
     $user = $result->row_array();
     if(!empty($user))
     {
       $sql = "UPDATE {$this->table} 
-            SET validate = 1
+            SET validated = 1
             WHERE id = '$id'";
       $this->db1->query($sql);
 
