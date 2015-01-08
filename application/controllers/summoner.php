@@ -21,7 +21,7 @@ class Summoner extends MY_Controller
 		$data['id'] = $id;	
 		$data['page'] = "summoner";
 		$data['summonerid'] = $id;
-		if(!$this->is_logged_in())
+		if(!$this->is_logged_in() && ($id == NULL || $id == 'index'))
 		{
 			redirect('home');
 			return;

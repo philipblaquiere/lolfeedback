@@ -24,6 +24,6 @@ class Search extends MY_Controller
 			$id = $summoner[$first_key]['id'];
 		}
 
-		redirect('summoner/'. $id,'location');
+		redirect('summoner/'. $id);
 	}
 }
