@@ -52,18 +52,21 @@ class Review extends MY_Controller
 		
 		if(!array_key_exists('message', $comment)  || !array_key_exists('id', $comment))
 		{
+			$data['status'] = "fail";
 			$data['msg'] = "Error while posting comment";
 			echo json_encode($data);
 			return;
 		}
 		if(strlen($comment['message']) > 499)
 		{
+			$data['status'] = "fail";
 			$data['msg'] = "Comment too long (max 500 characters)";
 			echo json_encode($data);
 			return;
 		}
 		$this->review_model->comment($comment);
-		$data['msg'] = "Comment posted";
+		$data['status'] = "success";
+		$data['msg'] = "Feedback given";
 		echo json_encode($data);
 		return;
 	}

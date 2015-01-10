@@ -162,7 +162,7 @@ $(document).on('click', ".review", function() {
     }
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "lolfeedback/review/create",
+        url: "/lolfeedback/review/create",
         type: 'POST',
         data: review,
         success: function(data){
@@ -219,7 +219,7 @@ $(document).on('click', ".review", function() {
             messageButtonElement.setAttribute('value', '1')
             messageButtonElement.setAttribute('id', buttonId+"-message-button")
             messageButtonElement.setAttribute('class', 'btn btn-default review-message-button')
-            messageButtonElement.insertAdjacentHTML('afterBegin','Send')
+            messageButtonElement.insertAdjacentHTML('afterBegin','Give Feedback')
             messageButtonElement.setAttribute('type', 'button')
             var messageStatusElement = document.createElement('label')
             messageStatusElement.setAttribute('id', buttonId+"-review-message-status")
@@ -268,13 +268,26 @@ $(document).on('click', ".review-message-button", function() {
     button.disabled = true
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "lolfeedback/review/comment",
+        url: "/lolfeedback/review/comment",
         type: 'POST',
         data: review,
         dataType: 'JSON',
         success: function(data){
-            $("#"+reviewid+"-review-message-status").html(data.msg)
-            button.disabled = false
+            if(data.status = "success")
+            {
+                $("#"+reviewid).fadeOut('200')
+                $("#"+reviewid+"-message").fadeOut('200', function(){
+                    var commentParent = $("#"+reviewid).parent()
+                    commentParent.hide()
+                    commentParent.html('<a class="btn btn-link disabled text-muted text-left">'+data.msg+'</a>')
+                    commentParent.fadeIn('200')
+                })
+            }
+            else
+            {
+                $("#"+reviewid+"-review-message-status").html(data.msg)
+                button.disabled = false
+            }
         },
         error:function(data, jqXHR, textStatus, errorThrown){
             $("#"+reviewid+"-review-message-status").html('An error has occured creating the review');
@@ -386,7 +399,7 @@ $(document).on('change', ".skill-radio", function() {
 
     /* Send the data using post and put the results in a div */
     $.ajax({
-        url: "lolfeedbackreview/update",
+        url: "/lolfeedback/review/update",
         type: 'POST',
         data: review,
         success: function(data){
