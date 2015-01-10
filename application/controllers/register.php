@@ -105,7 +105,7 @@ class Register extends MY_Controller
       $this->email->to($user['email']);
 
       $this->email->subject('Activate your LoL Feedback account');
-      $message = "Click on the link below to activate your LoL Feedback account!\n\n www.lolfeedback.com/auth/activate/".$user['id'] ."/". $code;
+      $message = "Click on the link below to activate your LoL Feedback account!\n\n{unwrap}www.lolfeedback.com/auth/activate/".$user['id'] ."/". $code."{/unwrap}";
       $this->email->message($message);
       if($this->email->send())
       {

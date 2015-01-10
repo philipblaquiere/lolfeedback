@@ -445,3 +445,10 @@ $(document).ready(function() {
     }
 });
 
+$(document).on('click', ".rating-number-example", function(event) {
+    event.preventDefault();
+    var buttonId = this.id
+    var ids = buttonId.split("-")
+    var ratingid = ids[0]
+    $("#"+ratingid+"-description").fadeIn('200')
+});

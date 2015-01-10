@@ -113,7 +113,7 @@ class Auth extends MY_Controller
 
     $this->load->library('form_validation');
 
-    $this->form_validation->set_rules('password2', 'Repeat New Password', 'trim|required|xss_clean|min_length[6]');
+    $this->form_validation->set_rules('password2', 'Confirm New Password', 'trim|required|xss_clean|min_length[6]');
     $this->form_validation->set_rules('password', 'New Password', 'trim|required|xss_clean|min_length[6]|matches[password2]');
 
     $user = $this->user_model->is_reset_valid($id, $code);

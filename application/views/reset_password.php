@@ -2,10 +2,13 @@
 	<div class="row homepage-pitch-main-title brand ">
 		LoL Feedback
 	</div>
-	<?php echo validation_errors(); ?>
+	
 	<div class="row login">
 		<div class="col-sm-4 col-sm-offset-4">
 			<?php echo form_open('', array('id' => 'reset-password-form')); ?>
+			<div class="form-group">
+				<?php echo validation_errors(); ?>
+			</div>
 			<div class="form-group">
 				<span id="helpBlock" class="help-block ">Enter your new passwords below. Make sure they match and are at least 6 characters long.</span>
 				<?php echo form_password(array('name' => 'password', 'id'=>'password', 'class' => 'form-control', 'placeholder' => 'New password' )); ?>
