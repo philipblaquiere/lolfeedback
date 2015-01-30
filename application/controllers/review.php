@@ -66,7 +66,7 @@ class Review extends MY_Controller
 		}
 		$this->review_model->comment($comment);
 		$data['status'] = "success";
-		$data['msg'] = "Feedback given";
+		$data['msg'] = "feedback given";
 		echo json_encode($data);
 		return;
 	}

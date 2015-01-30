@@ -347,9 +347,14 @@ ul
   height: 230px;
 }
 .homepage-skill-rating-description{
-  padding-top: 20px;
-  margin-right: 33px;
-  font-size: 1.5em;
+  padding-top: 17px;
+  margin-right: 35px;
+  font-family: 'Open Sans', sans-serif;
+  font-color:#819c32;
+  font-size: 1.2em;
+}
+.text-grey{
+  color: #2c2c2c;
 }
 
 .color-pallette{

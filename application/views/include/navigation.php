@@ -48,7 +48,7 @@
             <li>
               <?php echo form_open('search', array('class' => 'navbar-form navbar-right', 'id' => 'search_summoner', 'role' => 'search')); ?>
               <div class="input-group search">
-                <?php echo form_input(array('name' => 'search', 'class' => 'form-control', 'placeholder' => 'Search Summoner', 'id' => 'search_textbox')); ?>
+                <?php echo form_input(array('name' => 'search', 'class' => 'form-control', 'placeholder' => 'Summoner Name', 'id' => 'search_textbox')); ?>
                 <span class="input-group-btn">
                   <button type="submit" class="btn btn-default">Search</button>
                 </span>

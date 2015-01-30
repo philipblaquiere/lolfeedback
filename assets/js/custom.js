@@ -279,7 +279,7 @@ $(document).on('click', ".review-message-button", function() {
                 $("#"+reviewid+"-message").fadeOut('200', function(){
                     var commentParent = $("#"+reviewid).parent()
                     commentParent.hide()
-                    commentParent.html('<a class="btn btn-link disabled text-muted text-left">'+data.msg+'</a>')
+                    commentParent.html('<a class="btn btn-link disabled text-grey text-left">'+data.msg+'</a>')
                     commentParent.fadeIn('200')
                 })
             }
