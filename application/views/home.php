@@ -1,7 +1,3 @@
-<script type="text/javascript">
-
-</script>
-
 <div class="homepage">
 	<div class="homepage-header">
 		<div class="container">
@@ -34,7 +30,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="homepage-pitch-main-content">
-						<p>Instead of remaining passive after a heated game, LoL Feedback aims at providing a means to reach out to fellow LoL players by giving post-match feedback. Every feedback consists of leaving Talent ratings and a comment. This is your chance to give them solid pointers, or a simple "gg".</p>
+						<p>LoL Feedback aims at providing a means to reach out to fellow LoL players by giving post-match feedback. Every feedback consists of leaving Talent ratings and a comment. This is your chance to give fellow players solid pointers, or a good old "gg".</p>
 					</div>
 				</div>
 			</div>
@@ -172,7 +168,7 @@
 
 				<div class="homepage-pitch-content  text-center">
 					<div class="row">
-						<p>Giving Feedback to players is reserved to summoners who have registered to LoL Feedback and <strong>have played with or against</strong> said summoner.</p>
+						<p>Giving feedback is reserved to summoners who have registered to LoL Feedback and <strong>have played with or against</strong> the summoner they wish to leave feedback.</p>
 					</div>
 				</div>
 
