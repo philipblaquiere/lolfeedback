@@ -416,12 +416,13 @@ $(document).ready(function() {
     if($('body').is('.summoner'))
     {
         var summonerId = document.getElementsByTagName("body")[0].id
-        $("#sr_"+summonerId).html('<div class="row"><div class="col-md-1 col-md-offset-3"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
-
-        if(summonerId == "index")
+        if(summonerId == null || summonerId == "" || summonerId == "index")
         {
+            $("#sr_"+summonerId).html('');
             return;
         }
+
+        $("#sr_"+summonerId).html('<div class="row"><div class="col-md-1 col-md-offset-3"><div class="spinner"><i class="fa-li fa fa-spinner fa-spin fa-2x"></i></div></div></div>');
 
         $.ajax({
             url: "/lolfeedback/games/recent/"+summonerId,
