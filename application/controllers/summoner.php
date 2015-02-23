@@ -18,12 +18,13 @@ class Summoner extends MY_Controller
 
 	public function index($id)
 	{
-		$data['id'] = $id;	
 		$data['page'] = "summoner";
-		$data['summonerid'] = $id;
+		$data['summonerid'] = "";
+		$data['id'] = "";
 		if(!$this->is_logged_in() && ($id == NULL || $id == 'index'))
 		{
-			redirect('home');
+			$data['title'] = "No summoner found";
+			$this->view_wrapper('summoner', $data);
 			return;
 		}
 
@@ -34,34 +35,37 @@ class Summoner extends MY_Controller
 			redirect('summoner/'.$id);
 			return;
 		}
-		if(!empty($id))
+		try
 		{
 			$summoner_name = $this->lol_api->getSummoner($id, 'name');
-			if(empty($summoner_name))
+			if(!array_key_exists($id, $summoner_name))
 			{
 				$data['title'] = "No summoner found";
-				$data['sub_title'] = "Try searching for another summoner";
 			}
 			else
 			{
-				if(!array_key_exists($id, $summoner_name))
-				{
-					$data['title'] = "Summoner Not Found";
-				}
-				else
-				{
-					$data['title'] = $summoner_name[$id];
-				}
-				
-				//parse data and display.
-				$stats = $this->review_model->statistics($id);
-
-				$data['stats'] = array_slice($stats, 0, 4);
-				$data['review_stats'] = array_slice($stats, 4, 2);
-				$data['sub_title'] = "Look below for game reviews";
+				$data['title'] = $summoner_name[$id];
+				$data['id'] = $id;	
+				$data['summonerid'] = $id;
 			}
+			
+			//parse data and display.
+			$stats = $this->review_model->statistics($id);
+
+			$data['stats'] = array_slice($stats, 0, 4);
+			$data['review_stats'] = array_slice($stats, 4, 2);
+			$data['sub_title'] = "Look below for game reviews";
 		}
-		//should never come here
+		catch (Exception $e)
+		{
+			$data['id'] = "";
+			$data['title'] = "No summoner found";
+			$data['sub_title'] = "Try searching for another summoner";
+
+			$this->view_wrapper('summoner', $data);
+			return;
+		}
+		
 		$this->view_wrapper('summoner', $data);
 	}
 }
