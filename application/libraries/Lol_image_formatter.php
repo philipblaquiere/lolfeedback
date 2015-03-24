@@ -188,6 +188,7 @@ class Lol_image_formatter
 			$champion['268'] = "Azir.png";
 			$champion['429'] = "Kalista.png";
 			$champion['421'] = "RekSai.png";
+			$champion['432'] = "Bard.png";
 		}
 		$this->champions = $champion;
 		return $this->champions;
